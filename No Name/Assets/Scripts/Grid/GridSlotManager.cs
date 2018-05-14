@@ -14,7 +14,7 @@ public class GridSlotManager : MonoBehaviour
     [SerializeField]
     private GridSlotType slot_type = GridSlotType.GST_INTERACTABLE;
 
-    GridManager gird_manager = null;
+    private GridManager gird_manager = null;
 
     public void SetGridManager(GridManager gm)
     {

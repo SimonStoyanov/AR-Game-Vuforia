@@ -17,11 +17,14 @@ public class GridManager
             slot_type = type;
         }
 
+        public void AddNearSlot(GridSlot slot) { near_slots.Add(slot); }
+
         public bool GetIsUsed() { return is_used; }
         public GameObject GetGameObject() { return game_object; }
         public SpriteRenderer GetSpriteRenderer() { return sprite_renderer; }
         public BoxCollider GetCollider() { return collider; }
         public GridSlotManager.GridSlotType GetSlotType() { return slot_type; }
+        List<GridSlot> near_slots = new List<GridSlot>();
 
         private bool is_used = false;
         private GameObject game_object = null;
@@ -116,6 +119,20 @@ public class GridManager
                         break;
                     }
                 }
+            }
+        }
+
+        for (int i = 0; i < grid.Count; ++i)
+        {
+            GridCreator.GridCreatorSlot curr_crea_grid = grid[i];
+
+            GridSlot curr_grid_slot = GetGridSlotByGameObject(curr_crea_grid.go);
+
+            for(int c = 0; c < curr_crea_grid.near_childs.Count; ++c)
+            {
+                GridSlot near_grid_slot = GetGridSlotByGameObject(curr_crea_grid.near_childs[c]);
+
+                curr_grid_slot.AddNearSlot(near_grid_slot);
             }
         }
     }
