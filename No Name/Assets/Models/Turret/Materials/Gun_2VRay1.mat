@@ -23,11 +23,11 @@ Material:
         m_Scale: {x: 12, y: 12}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: ee1159cbf786d9740a614dee10d25935, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _Shininess: 0.2636681
     m_Colors:
-    - _Color: {r: 0.31617647, g: 0.31617647, b: 0.31617647, a: 1}
+    - _Color: {r: 0.5182202, g: 0.5207793, b: 0.52205884, a: 1}
     - _SpecColor: {r: 0.5588235, g: 0.5588235, b: 0.5588235, a: 1}
