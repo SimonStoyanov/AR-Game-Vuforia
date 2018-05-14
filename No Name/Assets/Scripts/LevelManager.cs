@@ -19,7 +19,9 @@ public class LevelManager : MonoBehaviour
 	void Start ()
     {
         grid_manager.InitGrid(world_parent, grid_base_sprite, grid_pressed_sprite);
-	}
+        grid_manager.SetPrintGrid(true);
+
+    }
 
 	void Update ()
     {

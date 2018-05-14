@@ -78,12 +78,11 @@ public class GridManager
 
         for (int i = 0; i < grid.Count; ++i)
         {
-            Debug.Log("hi");
-
             GameObject curr_go = grid[i].go;
 
             SpriteRenderer srend = curr_go.AddComponent<SpriteRenderer>();
             srend.sprite = grid_slot_sprite;
+            srend.enabled = false;
 
             BoxCollider bcoll = curr_go.AddComponent<BoxCollider>();
             bcoll.isTrigger = true;
@@ -118,6 +117,14 @@ public class GridManager
                     }
                 }
             }
+        }
+    }
+
+    public void SetPrintGrid(bool set)
+    {
+        for (int i = 0; i < interactable_slots.Count; ++i)
+        {
+            interactable_slots[i].GetSpriteRenderer().enabled = set;
         }
     }
 
