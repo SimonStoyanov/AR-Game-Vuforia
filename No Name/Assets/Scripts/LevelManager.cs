@@ -15,16 +15,19 @@ public class LevelManager : MonoBehaviour
     public Sprite grid_pressed_sprite;
 
     GridManager grid_manager = new GridManager();
+    PathManager path_manager = new PathManager();
 
-	void Start ()
+    void Start()
     {
         grid_manager.InitGrids();
         List<GridManager.Grid> grids = grid_manager.GetGrids();
-        for(int i = 0; i < grids.Count; ++i)
+        for (int i = 0; i < grids.Count; ++i)
         {
             grids[i].SetGridInfo(world_parent, grid_base_sprite, grid_pressed_sprite);
             grids[i].SetPrintGrid(true);
         }
+
+        path_manager.InitPaths();
     }
 
 	void Update ()
