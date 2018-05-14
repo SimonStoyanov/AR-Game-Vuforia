@@ -8,7 +8,6 @@ public class GridSlotManager : MonoBehaviour
     {
         GST_INTERACTABLE,
         GST_NO_INTERACTABLE,
-        GST_PATH,
     }
 
     [SerializeField]

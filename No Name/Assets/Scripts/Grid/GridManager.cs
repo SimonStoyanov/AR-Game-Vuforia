@@ -32,7 +32,7 @@ public class GridManager
 
         private void GenerateRuntimeGrid(List<GridCreator.GridCreatorSlot> grid)
         {
-            gird_slots.Clear();
+            grid_slots.Clear();
             interactable_slots.Clear();
             non_interactable_slots.Clear();
             path_slots.Clear();
@@ -53,7 +53,7 @@ public class GridManager
 
                 GridSlot slot = new GridSlot(curr_go, smanager.GetSlotType(), srend, bcoll);
 
-                gird_slots.Add(slot);
+                grid_slots.Add(slot);
 
                 if (smanager != null)
                 {
@@ -68,12 +68,6 @@ public class GridManager
                         case GridSlotManager.GridSlotType.GST_NO_INTERACTABLE:
                             {
                                 non_interactable_slots.Add(slot);
-                                break;
-                            }
-
-                        case GridSlotManager.GridSlotType.GST_PATH:
-                            {
-                                path_slots.Add(slot);
                                 break;
                             }
                     }
@@ -93,9 +87,9 @@ public class GridManager
         {
             GridSlot ret = null;
 
-            for (int i = 0; i < gird_slots.Count; ++i)
+            for (int i = 0; i < grid_slots.Count; ++i)
             {
-                GridSlot curr_slot = gird_slots[i];
+                GridSlot curr_slot = grid_slots[i];
 
                 if (curr_slot.GetGameObject() == go)
                 {
@@ -125,11 +119,51 @@ public class GridManager
             }
         }
 
-        private GameObject grid_parent = null;
-        private Vector2 grid_size = Vector2.zero;
-        private float slot_size = 0.0f;
+        public GridSlot GetClosestSlot(Vector3 pos)
+        {
+            GridSlot ret = null;
 
-        private List<GridSlot> gird_slots = new List<GridSlot>();
+            float closest_distance = float.NegativeInfinity;
+            for (int i = 0; i < grid_slots.Count; ++i)
+            {
+                GridSlot curr_slot = grid_slots[i];
+                float curr_distance = Vector3.Distance(pos, curr_slot.GetGameObject().transform.position);
+
+                if (curr_distance < closest_distance)
+                {
+                    ret = curr_slot;
+                    closest_distance = curr_distance;
+                }
+            }
+
+            return ret;
+        }
+
+        public GridSlot GetClosestPathSlot(Vector3 pos)
+        {
+            GridSlot ret = null;
+
+            float closest_distance = float.NegativeInfinity;
+            for (int i = 0; i < path_slots.Count; ++i)
+            {
+                GridSlot curr_slot = path_slots[i];
+                float curr_distance = Vector3.Distance(pos, curr_slot.GetGameObject().transform.position);
+
+                if (curr_distance < closest_distance)
+                {
+                    ret = curr_slot;
+                    closest_distance = curr_distance;
+                }
+            }
+
+            return ret;
+        }
+
+        private GameObject grid_parent = null;
+        //private Vector2 grid_size = Vector2.zero;
+        //private float slot_size = 0.0f;
+
+        private List<GridSlot> grid_slots = new List<GridSlot>();
 
         private List<GridSlot> path_slots = new List<GridSlot>();
         private List<GridSlot> interactable_slots = new List<GridSlot>();
@@ -161,7 +195,7 @@ public class GridManager
         public SpriteRenderer GetSpriteRenderer() { return sprite_renderer; }
         public BoxCollider GetCollider() { return collider; }
         public GridSlotManager.GridSlotType GetSlotType() { return slot_type; }
-        List<GridSlot> near_slots = new List<GridSlot>();
+        public List<GridSlot> near_slots = new List<GridSlot>();
 
         private bool is_used = false;
         private GameObject game_object = null;
@@ -172,11 +206,13 @@ public class GridManager
 
     public void InitGrids()
     {
-        GridInstance[] grids = Object.FindObjectsOfType<GridInstance>();
+        grids.Clear();
 
-        for(int i = 0; i < grids.Length; ++i)
+        GridInstance[] creator_grids = Object.FindObjectsOfType<GridInstance>();
+
+        for(int i = 0; i < creator_grids.Length; ++i)
         {
-            List<GridCreator.GridCreatorSlot> slots = grids[i].GetGrid();
+            List<GridCreator.GridCreatorSlot> slots = creator_grids[i].GetGrid();
 
             CreateGrid(slots);
         }

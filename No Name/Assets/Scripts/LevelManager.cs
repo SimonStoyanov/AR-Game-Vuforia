@@ -25,7 +25,6 @@ public class LevelManager : MonoBehaviour
             grids[i].SetGridInfo(world_parent, grid_base_sprite, grid_pressed_sprite);
             grids[i].SetPrintGrid(true);
         }
-
     }
 
 	void Update ()

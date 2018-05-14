@@ -128,12 +128,6 @@ public class GridInstance : MonoBehaviour
                         color = Color.magenta;
                         break;
                     }
-                case GridSlotManager.GridSlotType.GST_PATH:
-                    {
-                        color = Color.green;
-
-                        break;
-                    }
             }
 
             Debug.DrawLine(line1p1, center, Color.cyan);
