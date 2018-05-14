@@ -20,5 +20,10 @@ public class GridCreatorEditor : Editor
         {
             grid_creator.ClearGrid();
         }
+
+        if (GUILayout.Button("Finish Grid"))
+        {
+            grid_creator.FinishGrid();
+        }
     }
 }

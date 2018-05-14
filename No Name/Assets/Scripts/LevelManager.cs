@@ -18,8 +18,13 @@ public class LevelManager : MonoBehaviour
 
 	void Start ()
     {
-        grid_manager.InitGrid(world_parent, grid_base_sprite, grid_pressed_sprite);
-        grid_manager.SetPrintGrid(true);
+        grid_manager.InitGrids();
+        List<GridManager.Grid> grids = grid_manager.GetGrids();
+        for(int i = 0; i < grids.Count; ++i)
+        {
+            grids[i].SetGridInfo(world_parent, grid_base_sprite, grid_pressed_sprite);
+            grids[i].SetPrintGrid(true);
+        }
 
     }
 

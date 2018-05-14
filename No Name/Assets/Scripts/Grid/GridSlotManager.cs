@@ -14,11 +14,11 @@ public class GridSlotManager : MonoBehaviour
     [SerializeField]
     private GridSlotType slot_type = GridSlotType.GST_INTERACTABLE;
 
-    private GridManager gird_manager = null;
+    private GridManager.Grid grid = null;
 
-    public void SetGridManager(GridManager gm)
+    public void SetGridManager(GridManager.Grid gm)
     {
-        gird_manager = gm;
+        grid = gm;
     }
 
     public GridSlotType GetSlotType()
@@ -28,6 +28,7 @@ public class GridSlotManager : MonoBehaviour
 
     private void OnMouseDown()
     {
-        gird_manager.GridOnMouseDownCallback(this.gameObject);
+        if(grid != null)
+            grid.GridOnMouseDownCallback(this.gameObject);
     }
 }

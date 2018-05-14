@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GridGenerator
   - Grid
+  - FinishedGrid
   layers:
   - Default
   - TransparentFX

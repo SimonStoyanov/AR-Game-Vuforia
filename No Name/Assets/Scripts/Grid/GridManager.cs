@@ -6,6 +6,143 @@ public class GridManager
 {
     private GridCreator grid_creator = null;
 
+    private List<Grid> grids = new List<Grid>();
+
+    [HideInInspector]
+    public class Grid
+    {
+        public Grid(List<GridCreator.GridCreatorSlot> slots)
+        {
+            GenerateRuntimeGrid(slots);
+        }
+
+        public void SetGridInfo(GameObject _grid_parent, Sprite grid_sprite, Sprite grid_pressed_sprite)
+        {
+            selected_grid_slot = null;
+
+            grid_parent = _grid_parent;
+            grid_slot_sprite = grid_sprite;
+            grid_slot_pressed_sprite = grid_pressed_sprite;
+
+            for (int i = 0; i < interactable_slots.Count; ++i)
+            {
+                interactable_slots[i].GetSpriteRenderer().sprite = grid_sprite;
+            }
+        }
+
+        private void GenerateRuntimeGrid(List<GridCreator.GridCreatorSlot> grid)
+        {
+            gird_slots.Clear();
+            interactable_slots.Clear();
+            non_interactable_slots.Clear();
+            path_slots.Clear();
+
+            for (int i = 0; i < grid.Count; ++i)
+            {
+                GameObject curr_go = grid[i].go;
+
+                SpriteRenderer srend = curr_go.AddComponent<SpriteRenderer>();
+                srend.sprite = grid_slot_sprite;
+                srend.enabled = false;
+
+                BoxCollider bcoll = curr_go.AddComponent<BoxCollider>();
+                bcoll.isTrigger = true;
+
+                GridSlotManager smanager = curr_go.GetComponent<GridSlotManager>();
+                smanager.SetGridManager(this);
+
+                GridSlot slot = new GridSlot(curr_go, smanager.GetSlotType(), srend, bcoll);
+
+                gird_slots.Add(slot);
+
+                if (smanager != null)
+                {
+                    switch (smanager.GetSlotType())
+                    {
+                        case GridSlotManager.GridSlotType.GST_INTERACTABLE:
+                            {
+                                interactable_slots.Add(slot);
+                                break;
+                            }
+
+                        case GridSlotManager.GridSlotType.GST_NO_INTERACTABLE:
+                            {
+                                non_interactable_slots.Add(slot);
+                                break;
+                            }
+
+                        case GridSlotManager.GridSlotType.GST_PATH:
+                            {
+                                path_slots.Add(slot);
+                                break;
+                            }
+                    }
+                }
+            }
+        }
+
+        public void SetPrintGrid(bool set)
+        {
+            for (int i = 0; i < interactable_slots.Count; ++i)
+            {
+                interactable_slots[i].GetSpriteRenderer().enabled = set;
+            }
+        }
+
+        GridSlot GetGridSlotByGameObject(GameObject go)
+        {
+            GridSlot ret = null;
+
+            for (int i = 0; i < gird_slots.Count; ++i)
+            {
+                GridSlot curr_slot = gird_slots[i];
+
+                if (curr_slot.GetGameObject() == go)
+                {
+                    ret = curr_slot;
+                    break;
+                }
+            }
+
+            return ret;
+        }
+
+        public void GridOnMouseDownCallback(GameObject go)
+        {
+            GridSlot slot = GetGridSlotByGameObject(go);
+
+            if (slot != null)
+            {
+                if (selected_grid_slot != null)
+                    selected_grid_slot.GetSpriteRenderer().sprite = grid_slot_sprite;
+
+                if (slot.GetSlotType() == GridSlotManager.GridSlotType.GST_INTERACTABLE)
+                {
+                    selected_grid_slot = slot;
+
+                    selected_grid_slot.GetSpriteRenderer().sprite = grid_slot_pressed_sprite;
+                }
+            }
+        }
+
+        private GameObject grid_parent = null;
+        private Vector2 grid_size = Vector2.zero;
+        private float slot_size = 0.0f;
+
+        private List<GridSlot> gird_slots = new List<GridSlot>();
+
+        private List<GridSlot> path_slots = new List<GridSlot>();
+        private List<GridSlot> interactable_slots = new List<GridSlot>();
+        private List<GridSlot> non_interactable_slots = new List<GridSlot>();
+
+        private Sprite grid_slot_sprite = null;
+        private Sprite grid_slot_pressed_sprite = null;
+
+        private GridSlot selected_grid_slot = null;
+
+        private GridCreator creator = null;
+    }
+
     [HideInInspector]
     public class GridSlot
     {
@@ -33,185 +170,28 @@ public class GridManager
         private GridSlotManager.GridSlotType slot_type = GridSlotManager.GridSlotType.GST_INTERACTABLE;
     }
 
-    GameObject grid_parent = null;
-    Vector2 grid_size = Vector2.zero;
-    float slot_size;
-
-    List<GridSlot> gird_slots = new List<GridSlot>();
-
-    List<GridSlot> path_slots = new List<GridSlot>();
-    List<GridSlot> interactable_slots = new List<GridSlot>();
-    List<GridSlot> non_interactable_slots = new List<GridSlot>();
-
-    Sprite grid_slot_sprite = null;
-    Sprite grid_slot_pressed_sprite = null;
-
-    GridSlot selected_grid_slot = null;
-
-    public void InitGrid(GameObject _grid_parent, Sprite grid_sprite, Sprite grid_pressed_sprite)
+    public void InitGrids()
     {
-        selected_grid_slot = null;
+        GridInstance[] grids = Object.FindObjectsOfType<GridInstance>();
 
-        grid_parent = _grid_parent;
-        grid_slot_sprite = grid_sprite;
-        grid_slot_pressed_sprite = grid_pressed_sprite;
-
-
-        GameObject grid_creator_go = GameObject.FindGameObjectWithTag("GridGenerator");
-
-        if (grid_creator_go != null)
+        for(int i = 0; i < grids.Length; ++i)
         {
-            grid_creator = grid_creator_go.GetComponent<GridCreator>();
+            List<GridCreator.GridCreatorSlot> slots = grids[i].GetGrid();
 
-            if (grid_creator != null)
-            {
-                List<GridCreator.GridCreatorSlot> grid = grid_creator.GetGrid();
-
-                GenerateRuntimeGrid(grid);
-            }
+            CreateGrid(slots);
         }
     }
 
-    public void GenerateRuntimeGrid(List<GridCreator.GridCreatorSlot> grid)
+    public void CreateGrid(List<GridCreator.GridCreatorSlot> creator_slots)
     {
-        gird_slots.Clear();
-        interactable_slots.Clear();
-        non_interactable_slots.Clear();
-        path_slots.Clear();
+        Grid grid = new Grid(creator_slots);
 
-        for (int i = 0; i < grid.Count; ++i)
-        {
-            GameObject curr_go = grid[i].go;
-
-            SpriteRenderer srend = curr_go.AddComponent<SpriteRenderer>();
-            srend.sprite = grid_slot_sprite;
-            srend.enabled = false;
-
-            BoxCollider bcoll = curr_go.AddComponent<BoxCollider>();
-            bcoll.isTrigger = true;
-
-            GridSlotManager smanager = curr_go.GetComponent<GridSlotManager>();
-            smanager.SetGridManager(this);
-
-            GridSlot slot = new GridSlot(curr_go, smanager.GetSlotType(), srend, bcoll);
-
-            gird_slots.Add(slot);
-
-            if (smanager != null)
-            {
-                switch (smanager.GetSlotType())
-                {
-                    case GridSlotManager.GridSlotType.GST_INTERACTABLE:
-                    {
-                        interactable_slots.Add(slot);
-                        break;
-                    }
-
-                    case GridSlotManager.GridSlotType.GST_NO_INTERACTABLE:
-                    {
-                        non_interactable_slots.Add(slot);
-                        break;
-                    }
-
-                    case GridSlotManager.GridSlotType.GST_PATH:
-                    {
-                        path_slots.Add(slot);
-                        break;
-                    }
-                }
-            }
-        }
-
-        for (int i = 0; i < grid.Count; ++i)
-        {
-            GridCreator.GridCreatorSlot curr_crea_grid = grid[i];
-
-            GridSlot curr_grid_slot = GetGridSlotByGameObject(curr_crea_grid.go);
-
-            for(int c = 0; c < curr_crea_grid.near_childs.Count; ++c)
-            {
-                GridSlot near_grid_slot = GetGridSlotByGameObject(curr_crea_grid.near_childs[c]);
-
-                curr_grid_slot.AddNearSlot(near_grid_slot);
-            }
-        }
+        grids.Add(grid);
     }
 
-    public void SetPrintGrid(bool set)
+    public List<Grid> GetGrids()
     {
-        for (int i = 0; i < interactable_slots.Count; ++i)
-        {
-            interactable_slots[i].GetSpriteRenderer().enabled = set;
-        }
+        return grids;
     }
 
-    GridSlot GetGridSlotByGameObject(GameObject go)
-    {
-        GridSlot ret = null;
-
-        for(int i = 0; i < gird_slots.Count; ++i)
-        {
-            GridSlot curr_slot = gird_slots[i];
-
-            if (curr_slot.GetGameObject() == go)
-            {
-                ret = curr_slot;
-                break;
-            } 
-        }
-
-        return ret;
-    }
-
-    public void GridOnMouseDownCallback(GameObject go)
-    {
-        GridSlot slot = GetGridSlotByGameObject(go);
-
-        if(slot != null)
-        {
-            if(selected_grid_slot != null)
-                selected_grid_slot.GetSpriteRenderer().sprite = grid_slot_sprite;
-
-            if (slot.GetSlotType() == GridSlotManager.GridSlotType.GST_INTERACTABLE)
-            {
-                selected_grid_slot = slot;
-
-                selected_grid_slot.GetSpriteRenderer().sprite = grid_slot_pressed_sprite;
-            }
-        }
-    }
-
-    public void DrawGridDebug()
-    {
-        //for(int i = 0; i < gird_slots.Count; ++i)
-        //{
-        //    GridSlot curr_slot = gird_slots[i];
-
-        //    float half_slot_size = slot_size * 0.5f;
-        //    float quad_x = curr_slot.GetPosition().x - half_slot_size;
-        //    float quad_y = curr_slot.GetPosition().y - half_slot_size;
-        //    float quad_w = curr_slot.GetPosition().x + half_slot_size;
-        //    float quad_z = curr_slot.GetPosition().y + half_slot_size;
-
-        //    Vector3 center = new Vector3(curr_slot.GetPosition().x, 0, curr_slot.GetPosition().y);
-
-        //    Vector3 line1p1 = new Vector3(quad_x, 0, quad_y);
-        //    Vector3 line1p2 = new Vector3(quad_x, 0, quad_z);
-
-        //    Vector3 line2p1 = new Vector3(quad_x, 0, quad_z);
-        //    Vector3 line2p2 = new Vector3(quad_w, 0, quad_z);
-
-        //    Vector3 line3p1 = new Vector3(quad_w, 0, quad_z);
-        //    Vector3 line3p2 = new Vector3(quad_w, 0, quad_y);
-
-        //    Vector3 line4p1 = new Vector3(quad_w, 0, quad_y);
-        //    Vector3 line4p2 = new Vector3(quad_x, 0, quad_y);
-
-        //    Debug.DrawLine(line1p1, center, Color.red);
-        //    Debug.DrawLine(line1p1, line1p2);
-        //    Debug.DrawLine(line2p1, line2p2);
-        //    Debug.DrawLine(line3p1, line3p2);
-        //    Debug.DrawLine(line4p1, line4p2);
-        //}
-    }
 }

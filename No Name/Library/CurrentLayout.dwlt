@@ -20,7 +20,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 950, y: 392}
+  m_MinSize: {x: 950, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -106,8 +106,8 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 947
-  m_MinSize: {x: 683, y: 342}
-  m_MaxSize: {x: 12008, y: 8042}
+  m_MinSize: {x: 683, y: 492}
+  m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
   controlID: 9
 --- !u!114 &6
@@ -130,8 +130,8 @@ MonoBehaviour:
     y: 0
     width: 1408
     height: 947
-  m_MinSize: {x: 406, y: 342}
-  m_MaxSize: {x: 8006, y: 8042}
+  m_MinSize: {x: 406, y: 492}
+  m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
   controlID: 10
 --- !u!114 &7
@@ -227,14 +227,14 @@ MonoBehaviour:
     y: 494
     width: 1408
     height: 453
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
-  m_ActualView: {fileID: 18}
+  m_MinSize: {x: 232, y: 271}
+  m_MaxSize: {x: 10002, y: 10021}
+  m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
   - {fileID: 18}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -258,7 +258,7 @@ MonoBehaviour:
   m_MinSize: {x: 277, y: 292}
   m_MaxSize: {x: 4002, y: 8042}
   vertical: 1
-  controlID: 146
+  controlID: 136
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -342,9 +342,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 15.521347, y: 44.032097, z: -22.957647}
+    m_Target: {x: 59.476738, y: 70.73696, z: -142.88612}
     speed: 2
-    m_Value: {x: 15.521347, y: 44.032097, z: -22.957647}
+    m_Value: {x: 59.476738, y: 70.73696, z: -142.88612}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -367,9 +367,9 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.40943393, y: -0.006801095, z: 0.0030536724, w: -0.91230935}
+    m_Target: {x: -0.49460903, y: 0.17738138, z: -0.103893355, w: -0.84445477}
     speed: 2
-    m_Value: {x: -0.40943393, y: -0.006801095, z: 0.0030536724, w: -0.91230935}
+    m_Value: {x: -0.49460906, y: 0.1773814, z: -0.10389336, w: -0.8444548}
   m_Size:
     m_Target: 32.41076
     speed: 2
@@ -413,9 +413,9 @@ MonoBehaviour:
     height: 473
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 14600000
-    m_LastClickedID: 24596
-    m_ExpandedIDs: 1883f9ff5ab0f9ff90faf9ff8c0ffaffd42efaffa6fbffff00000000d4630000
+    m_SelectedIDs: 
+    m_LastClickedID: 0
+    m_ExpandedIDs: a6fbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -488,7 +488,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 586
-    width: 1496
+    width: 1406
     height: 432
   m_SearchFilter:
     m_NameFilter: 
@@ -502,18 +502,18 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Textures
+    - Assets/Scripts/Grid
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Textures
+  - Assets/Scripts/Grid
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Guillem\Documents\GitHub\AR-Game-Vuforia\No Name
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: cc380000
-    m_LastClickedID: 14540
+    m_SelectedIDs: 2a4e0000
+    m_LastClickedID: 20010
     m_ExpandedIDs: 00000000442800002c2b0000622e0000f03d00003c44000082470000c44c00006a4e0000724e000022560000ca640000cc640000ce64000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -567,9 +567,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 8482f9ff
-    m_LastClickedInstanceID: -425340
-    m_HadKeyboardFocusLastEvent: 0
+    m_SelectedInstanceIDs: 
+    m_LastClickedInstanceID: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000be2c000046300000c02d00003e480000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
