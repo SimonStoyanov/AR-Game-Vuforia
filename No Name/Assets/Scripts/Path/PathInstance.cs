@@ -5,6 +5,8 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class PathInstance : MonoBehaviour
 {
+    [SerializeField] private string name;
+
     List<GameObject> path = new List<GameObject>();
 
     public void CreatePath()
@@ -17,6 +19,11 @@ public class PathInstance : MonoBehaviour
 
             path.Add(curr_go);
         }
+    }
+
+    public string GetName()
+    {
+        return name;
     }
 
     public List<GameObject> GetPath()

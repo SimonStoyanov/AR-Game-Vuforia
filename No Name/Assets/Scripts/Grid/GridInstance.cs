@@ -5,6 +5,8 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class GridInstance : MonoBehaviour
 {
+    [SerializeField] private string grid_name;
+
     [HideInInspector]
     [SerializeField]
     private float slot_size = 0;
@@ -31,6 +33,11 @@ public class GridInstance : MonoBehaviour
     public List<GridCreator.GridCreatorSlot> GetGrid()
     {
         return grid;
+    }
+
+    public string GetGridName()
+    {
+        return grid_name;
     }
 
     private void CalculateGridChilds()
@@ -140,15 +147,6 @@ public class GridInstance : MonoBehaviour
             Debug.DrawLine(line2p1, center, color);
             Debug.DrawLine(line3p1, center, color);
             Debug.DrawLine(line4p1, center, color);
-
-            //// Draw child conections
-            //for (int c = 0; c < curr_slot.near_childs.Count; ++c)
-            //{
-            //    GameObject child_go = curr_slot.near_childs[c];
-            //    Vector3 near_pos_center = new Vector3(child_go.transform.position.x, 0, child_go.transform.position.z);
-
-            //    Debug.DrawLine(center, near_pos_center, Color.yellow);
-            //}
         }
     }
 

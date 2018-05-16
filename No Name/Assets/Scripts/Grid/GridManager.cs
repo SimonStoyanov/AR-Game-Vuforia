@@ -11,8 +11,9 @@ public class GridManager
     [HideInInspector]
     public class Grid
     {
-        public Grid(List<GridCreator.GridCreatorSlot> slots)
+        public Grid(string name, List<GridCreator.GridCreatorSlot> slots)
         {
+            grid_name = name;
             GenerateRuntimeGrid(slots);
         }
 
@@ -28,6 +29,11 @@ public class GridManager
             {
                 interactable_slots[i].GetSpriteRenderer().sprite = grid_sprite;
             }
+        }
+
+        public string GetGridName()
+        {
+            return grid_name;
         }
 
         private void GenerateRuntimeGrid(List<GridCreator.GridCreatorSlot> grid)
@@ -159,9 +165,9 @@ public class GridManager
             return ret;
         }
 
+        private string grid_name;
+
         private GameObject grid_parent = null;
-        //private Vector2 grid_size = Vector2.zero;
-        //private float slot_size = 0.0f;
 
         private List<GridSlot> grid_slots = new List<GridSlot>();
 
@@ -213,14 +219,15 @@ public class GridManager
         for(int i = 0; i < creator_grids.Length; ++i)
         {
             List<GridCreator.GridCreatorSlot> slots = creator_grids[i].GetGrid();
+            string grid_name = creator_grids[i].GetGridName();
 
-            CreateGrid(slots);
+            CreateGrid(grid_name, slots);
         }
     }
 
-    public void CreateGrid(List<GridCreator.GridCreatorSlot> creator_slots)
+    public void CreateGrid(string grid_name, List<GridCreator.GridCreatorSlot> creator_slots)
     {
-        Grid grid = new Grid(creator_slots);
+        Grid grid = new Grid(grid_name, creator_slots);
 
         grids.Add(grid);
     }
@@ -228,6 +235,22 @@ public class GridManager
     public List<Grid> GetGrids()
     {
         return grids;
+    }
+
+    public Grid GetGridByBridName(string name)
+    {
+        Grid ret = null;
+
+        for(int i = 0; i < grids.Count; ++i)
+        {
+            if(grids[i].GetGridName() == name)
+            {
+                ret = grids[i];
+                break;
+            }
+        }
+
+        return ret;
     }
 
 }

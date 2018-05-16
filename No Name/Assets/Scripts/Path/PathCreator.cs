@@ -28,7 +28,12 @@ public class PathCreator : MonoBehaviour
         if(curr_parent != null)
         {
             GameObject child = new GameObject();
-  
+
+            GameObject last_node = GetCurrPathLastNode();
+
+            if (last_node != null)
+                child.transform.position = last_node.transform.position;
+
             child.transform.parent = curr_parent.transform;
 
             child.name = "Node: " + curr_parent.transform.childCount;
@@ -36,7 +41,7 @@ public class PathCreator : MonoBehaviour
             PathInstance instance = curr_parent.GetComponent<PathInstance>();
 
             if(instance != null)
-                instance.CreatePath(); 
+                instance.CreatePath();
         }
     }
 
@@ -56,5 +61,20 @@ public class PathCreator : MonoBehaviour
     public bool HasPath()
     {
         return curr_parent != null;
+    }
+
+    private GameObject GetCurrPathLastNode()
+    {
+        GameObject ret = null;
+
+        if(curr_parent != null)
+        {
+            if(curr_parent.transform.childCount > 0)
+            {
+                ret = curr_parent.transform.GetChild(curr_parent.transform.childCount - 1).gameObject;
+            }
+        }
+
+        return ret;
     }
 }

@@ -4,36 +4,81 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    public GameObject world_parent;
+    [SerializeField] private GameObject world_parent;
 
-    public Vector2 grid_starting_pos;
-    public float gird_slot_size = 5.0f;
-    public int grid_size_x = 10;
-    public int grid_size_y = 10;
+    [Header("Grid Sprites")]
+    [SerializeField] private Sprite grid_base_sprite;
+    [SerializeField] private Sprite grid_pressed_sprite;
 
-    public Sprite grid_base_sprite;
-    public Sprite grid_pressed_sprite;
+    [Header("Enemies")]
+    [SerializeField] private GameObject enemy;
 
-    GridManager grid_manager = new GridManager();
-    PathManager path_manager = new PathManager();
+    [Header("Map")]
+    [SerializeField] private GameObject map;
 
-    void Start()
+    private GridManager grid_manager = new GridManager();
+    private PathManager path_manager = new PathManager();
+
+    private List<GameObject> spawn_points = new List<GameObject>();
+
+    private int curr_wave = 0;
+    List<GameObject> enemies = new List<GameObject>();
+
+    public void Start()
     {
+        // Starting grid and paths (don't use them before that)
         grid_manager.InitGrids();
-        List<GridManager.Grid> grids = grid_manager.GetGrids();
-        for (int i = 0; i < grids.Count; ++i)
+        path_manager.InitPaths();
+
+        // Setup grid
+        GridManager.Grid curr_grid = grid_manager.GetGridByBridName("grid_1");
+
+        if (curr_grid != null)
         {
-            grids[i].SetGridInfo(world_parent, grid_base_sprite, grid_pressed_sprite);
-            grids[i].SetPrintGrid(true);
+            curr_grid.SetGridInfo(world_parent, grid_base_sprite, grid_pressed_sprite);
+            curr_grid.SetPrintGrid(true);
+        }
+        
+
+        // Get spawn points
+        if(map != null)
+        {
+            MapInstance mi = map.GetComponent<MapInstance>();
+
+            if(mi != null)
+                spawn_points = mi.GetSpawners();      
         }
 
-        path_manager.InitPaths();
+        SpawnEnemy();
     }
 
-	void Update ()
+    public void Update ()
     {
 
     }
 
+    public void SpawnEnemy()
+    {
+        if(spawn_points.Count > 0)
+        {
+            Vector3 spawn_pos = spawn_points[Random.Range(0, spawn_points.Count)].transform.position;
+            PathManager.Path path = path_manager.GetCloserPath(spawn_pos);
 
+            if(path != null)
+            {
+                if(enemy != null)
+                {
+                    GameObject curr_en = Instantiate(enemy, spawn_pos, Quaternion.identity);
+                    enemies.Add(curr_en);
+
+                    FollowPath path_script = curr_en.GetComponent<FollowPath>();
+
+                    if(path_script != null)
+                    {
+                        path_script.SetPath(path.GetPathList());
+                    }
+                }
+            }
+        }
+    }
 }
