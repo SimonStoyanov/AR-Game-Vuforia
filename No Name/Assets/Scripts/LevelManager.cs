@@ -13,11 +13,17 @@ public class LevelManager : MonoBehaviour
     [Header("Enemies")]
     [SerializeField] private GameObject enemy;
 
+    [Header("Turrets")]
+    [SerializeField] private GameObject turret;
+
     [Header("Map")]
     [SerializeField] private GameObject map;
 
     private GridManager grid_manager = new GridManager();
     private PathManager path_manager = new PathManager();
+    private EventSystem event_system = new EventSystem();
+
+    GridManager.Grid curr_grid = null;
 
     private List<GameObject> spawn_points = new List<GameObject>();
 
@@ -26,12 +32,14 @@ public class LevelManager : MonoBehaviour
 
     public void Start()
     {
+        event_system.Suscribe(OnEvent);
+
         // Starting grid and paths (don't use them before that)
         grid_manager.InitGrids();
         path_manager.InitPaths();
 
         // Setup grid
-        GridManager.Grid curr_grid = grid_manager.GetGridByBridName("grid_1");
+        curr_grid = grid_manager.GetGridByBridName("grid_1");
 
         if (curr_grid != null)
         {
@@ -39,7 +47,6 @@ public class LevelManager : MonoBehaviour
             curr_grid.SetPrintGrid(true);
         }
         
-
         // Get spawn points
         if(map != null)
         {
@@ -54,7 +61,22 @@ public class LevelManager : MonoBehaviour
 
     public void Update ()
     {
+        CheckGridPlacement();
+    }
 
+    private void CheckGridPlacement()
+    {
+        if(curr_grid.IsSlotSelected())
+        {
+            if(Input.GetKeyDown("a"))
+            {
+                Vector3 spawn_pos = curr_grid.GetSelectedSlot().GetGameObject().transform.position;
+
+                SpawnTurret(spawn_pos);
+
+                curr_grid.DeselectSelectedSlot();
+            }
+        }
     }
 
     public void SpawnEnemy()
@@ -71,14 +93,48 @@ public class LevelManager : MonoBehaviour
                     GameObject curr_en = Instantiate(enemy, spawn_pos, Quaternion.identity);
                     enemies.Add(curr_en);
 
+                    if(world_parent != null)
+                        curr_en.transform.parent = world_parent.transform;
+
                     FollowPath path_script = curr_en.GetComponent<FollowPath>();
 
                     if(path_script != null)
-                    {
                         path_script.SetPath(path.GetPathList());
-                    }
+
+                    Stats stats = curr_en.GetComponent<Stats>();
+
+                    if (stats != null)
+                        stats.SetManagers(this, event_system);
                 }
             }
+        }
+    }
+
+    public List<GameObject> GetEnemies()
+    {
+        return enemies;
+    }
+
+    public void SpawnTurret(Vector3 pos)
+    {
+        if(turret != null && world_parent != null)
+        {
+            GameObject curr_en = Instantiate(turret, pos, world_parent.transform.rotation);
+
+            curr_en.transform.parent = world_parent.transform;
+
+            TurretShoot turr_shoot = curr_en.GetComponent<TurretShoot>();
+
+            if (turr_shoot != null)
+                turr_shoot.SetManagers(this, event_system);
+        }
+    }
+
+    public void OnEvent(EventSystem.Event ev)
+    {
+        if(ev.GetEventType() == EventSystem.EventType.ENEMY_KILLED)
+        {
+            enemies.Remove(ev.enemy_killed.killed);
         }
     }
 }

@@ -6056,7 +6056,7 @@ Transform:
   - {fileID: 146553081}
   - {fileID: 1970644542}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &670761029
 GameObject:
@@ -10333,8 +10333,8 @@ GameObject:
   - component: {fileID: 1141587942}
   - component: {fileID: 1141587941}
   m_Layer: 0
-  m_Name: Path
-  m_TagString: Path
+  m_Name: Path2
+  m_TagString: FinishedPath
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10350,15 +10350,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a35fe3a73aff246948bea7929b9a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
+  name: path_2
 --- !u!4 &1141587942
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1141587940}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4.1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 465122073}
@@ -10367,8 +10367,8 @@ Transform:
   - {fileID: 2106242946}
   - {fileID: 1635112473}
   - {fileID: 1622749939}
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_Father: {fileID: 2057793616}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1149171020 stripped
 Transform:
@@ -11060,7 +11060,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: bf30d577eead1ef40bcf2b404289daf4, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: bf30d577eead1ef40bcf2b404289daf4, type: 2}
       propertyPath: m_LocalScale.x
@@ -18987,6 +18987,7 @@ MonoBehaviour:
   grid_pressed_sprite: {fileID: 21300000, guid: c813a492cfd1b8549b8e88b8c889af8a,
     type: 3}
   enemy: {fileID: 1258583198429672, guid: cedfd3fbdd3a6d44aab4856562dcf7b4, type: 2}
+  turret: {fileID: 1730201392507444, guid: 3396e10ebbd492d44aca80da50d0d5d1, type: 2}
   map: {fileID: 2057793615}
 --- !u!4 &2031890690
 Transform:
@@ -19182,6 +19183,7 @@ Transform:
   - {fileID: 2013859253}
   - {fileID: 909801039}
   - {fileID: 1390845158}
+  - {fileID: 1141587942}
   m_Father: {fileID: 667889473}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

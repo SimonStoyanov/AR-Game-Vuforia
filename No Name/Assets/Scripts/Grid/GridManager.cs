@@ -41,7 +41,6 @@ public class GridManager
             grid_slots.Clear();
             interactable_slots.Clear();
             non_interactable_slots.Clear();
-            path_slots.Clear();
 
             for (int i = 0; i < grid.Count; ++i)
             {
@@ -113,14 +112,13 @@ public class GridManager
 
             if (slot != null)
             {
-                if (selected_grid_slot != null)
-                    selected_grid_slot.GetSpriteRenderer().sprite = grid_slot_sprite;
+                DeselectSelectedSlot();
 
                 if (slot.GetSlotType() == GridSlotManager.GridSlotType.GST_INTERACTABLE)
                 {
                     selected_grid_slot = slot;
 
-                    selected_grid_slot.GetSpriteRenderer().sprite = grid_slot_pressed_sprite;
+                    SelectSlot(selected_grid_slot);
                 }
             }
         }
@@ -145,24 +143,32 @@ public class GridManager
             return ret;
         }
 
-        public GridSlot GetClosestPathSlot(Vector3 pos)
+        public void SelectSlot(GridSlot slot)
         {
-            GridSlot ret = null;
-
-            float closest_distance = float.NegativeInfinity;
-            for (int i = 0; i < path_slots.Count; ++i)
+            if (slot != null)
             {
-                GridSlot curr_slot = path_slots[i];
-                float curr_distance = Vector3.Distance(pos, curr_slot.GetGameObject().transform.position);
-
-                if (curr_distance < closest_distance)
-                {
-                    ret = curr_slot;
-                    closest_distance = curr_distance;
-                }
+                selected_grid_slot = slot;
+                selected_grid_slot.GetSpriteRenderer().sprite = grid_slot_pressed_sprite;
             }
+        }
 
-            return ret;
+        public void DeselectSelectedSlot()
+        {
+            if(selected_grid_slot != null)
+            {
+                selected_grid_slot.GetSpriteRenderer().sprite = grid_slot_sprite;
+                selected_grid_slot = null;
+            }
+        }
+
+        public bool IsSlotSelected()
+        {
+            return selected_grid_slot != null;
+        }
+
+        public GridSlot GetSelectedSlot()
+        {
+            return selected_grid_slot;
         }
 
         private string grid_name;
@@ -171,7 +177,6 @@ public class GridManager
 
         private List<GridSlot> grid_slots = new List<GridSlot>();
 
-        private List<GridSlot> path_slots = new List<GridSlot>();
         private List<GridSlot> interactable_slots = new List<GridSlot>();
         private List<GridSlot> non_interactable_slots = new List<GridSlot>();
 
