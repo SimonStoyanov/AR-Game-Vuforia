@@ -11051,15 +11051,15 @@ Prefab:
       objectReference: {fileID: 1629201043}
     - target: {fileID: 400000, guid: 384a0d8cc71cef74a873b3353337ea2c, type: 2}
       propertyPath: m_LocalScale.x
-      value: 275
+      value: 1.416667
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 384a0d8cc71cef74a873b3353337ea2c, type: 2}
       propertyPath: m_LocalScale.y
-      value: 275
+      value: 1.416667
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 384a0d8cc71cef74a873b3353337ea2c, type: 2}
       propertyPath: m_LocalScale.z
-      value: 275
+      value: 1.416667
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 384a0d8cc71cef74a873b3353337ea2c, type: 2}
       propertyPath: mTrackableName
@@ -18639,7 +18639,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: bf30d577eead1ef40bcf2b404289daf4, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bf30d577eead1ef40bcf2b404289daf4, type: 2}
@@ -19451,6 +19451,8 @@ MonoBehaviour:
   grid_pressed_sprite: {fileID: 21300000, guid: c813a492cfd1b8549b8e88b8c889af8a,
     type: 3}
   enemy: {fileID: 1258583198429672, guid: cedfd3fbdd3a6d44aab4856562dcf7b4, type: 2}
+  max_time_spawn: 5
+  min_time_spawn: 1
   turret: {fileID: 1730201392507444, guid: 3396e10ebbd492d44aca80da50d0d5d1, type: 2}
   map: {fileID: 2057793615}
 --- !u!4 &2031890690
