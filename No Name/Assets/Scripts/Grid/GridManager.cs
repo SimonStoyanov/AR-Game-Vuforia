@@ -112,13 +112,20 @@ public class GridManager
 
             if (slot != null)
             {
-                DeselectSelectedSlot();
-
                 if (slot.GetSlotType() == GridSlotManager.GridSlotType.GST_INTERACTABLE)
                 {
-                     selected_grid_slot = slot;
+                    if (slot == selected_grid_slot)
+                    {
+                        DeselectSelectedSlot();
+                    }
+                    else
+                    {
+                        DeselectSelectedSlot();
 
-                    SelectSlot(selected_grid_slot);
+                        selected_grid_slot = slot;
+
+                        SelectSlot(selected_grid_slot);
+                    }
                 }
             }
         }
