@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 95747670687352936}
   - component: {fileID: 114943669817291142}
   m_Layer: 0
-  m_Name: Turret1
+  m_Name: TurretG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -182,8 +182,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1730201392507444}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 175.35036, y: 64.45764, z: 165.07608}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.001, y: 0.001, z: 0.001}
   m_Children:
   - {fileID: 4809857568699478}
   - {fileID: 4207611731313944}
@@ -295,7 +295,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 285d02075c4d09442beccfa796f814a6, type: 2}
+  - {fileID: 2100000, guid: e3b1c86a6abaffe4d9e1d591d3710123, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
