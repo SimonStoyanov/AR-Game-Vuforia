@@ -299,6 +299,18 @@ public class LevelManager : MonoBehaviour
         {
 
         }
+
+        if(ev.GetEventType() == EventSystem.EventType.TRACKER_FOUND)
+        {
+            if(ev.tracker_found.tracker_go == map_tracker)
+                Time.timeScale = 1;
+        }
+
+        if (ev.GetEventType() == EventSystem.EventType.TRACKER_FOUND)
+        {
+            if (ev.tracker_found.tracker_go == map_tracker)
+                Time.timeScale = 1;
+        }
     }
 
     private void UpdateWaveUI(int wave)
