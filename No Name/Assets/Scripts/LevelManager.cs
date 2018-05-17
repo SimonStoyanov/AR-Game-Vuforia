@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Text wave_text;
     [SerializeField] private Text money_text;
+    [SerializeField] private GameObject map_not_found_panel;
 
     [Header("Grid Sprites")]
     [SerializeField] private Sprite grid_base_sprite;
@@ -302,14 +303,18 @@ public class LevelManager : MonoBehaviour
 
         if(ev.GetEventType() == EventSystem.EventType.TRACKER_FOUND)
         {
-            if(ev.tracker_found.tracker_go == map_tracker)
-                Time.timeScale = 1;
+            if (ev.tracker_found.tracker_go == map_tracker)
+            {
+                SetMapFound(true);
+            }
         }
 
-        if (ev.GetEventType() == EventSystem.EventType.TRACKER_FOUND)
+        if (ev.GetEventType() == EventSystem.EventType.TRACKER_LOST)
         {
-            if (ev.tracker_found.tracker_go == map_tracker)
-                Time.timeScale = 1;
+            if (ev.tracker_lost.tracker_go == map_tracker)
+            {
+                SetMapFound(false);
+            }
         }
     }
 
@@ -326,6 +331,24 @@ public class LevelManager : MonoBehaviour
         if(money_text != null)
         {
             money_text.text = "Money: " + money.ToString();
+        }
+    }
+
+    private void SetMapFound(bool set)
+    {
+        if(set)
+        {
+            if(map_not_found_panel != null)
+                map_not_found_panel.SetActive(false);
+            
+            Time.timeScale = 1;
+        }
+        else
+        {
+            if (map_not_found_panel != null)
+                map_not_found_panel.SetActive(true);
+
+            Time.timeScale = 0;
         }
     }
 
