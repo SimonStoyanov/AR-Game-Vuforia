@@ -11,6 +11,8 @@ public class TurretShoot : MonoBehaviour
         GREEN,
     }
 
+    [SerializeField] private int price = 100;
+
     [SerializeField] private GameObject bullet;
 
     [SerializeField] private GameObject shoot_point;
@@ -41,6 +43,11 @@ public class TurretShoot : MonoBehaviour
         event_system.Suscribe(OnEvent);
 
         audio_source = GetComponent<AudioSource>();
+    }
+
+    public int GetPrice()
+    {
+        return price;
     }
 
     public void OnEvent(EventSystem.Event ev)

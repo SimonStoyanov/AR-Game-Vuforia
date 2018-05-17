@@ -35,6 +35,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject blue_turret_tracker;
     [SerializeField] private GameObject green_turret_tracker;
 
+    [Header("Stats")]
+    [SerializeField] private int starting_money = 200;
+
     private GridManager grid_manager = new GridManager();
     private PathManager path_manager = new PathManager();
     private EventSystem event_system = new EventSystem();
@@ -128,6 +131,8 @@ public class LevelManager : MonoBehaviour
             if (md != null)
                 md.SetEventSystem(event_system);
         }
+
+        money = starting_money;
 
         // UI
         UpdateMoneyUI(money);
@@ -321,6 +326,59 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    public bool CanBuyTurret(TurretShoot.TurretType type)
+    {
+        bool ret = false;
+
+        switch (type)
+        {
+            case TurretShoot.TurretType.BLUE:
+                if (blue_turret != null)
+                {
+                    TurretShoot ts = blue_turret.GetComponent<TurretShoot>();
+
+                    if (ts != null)
+                    {
+                        int price = ts.GetPrice();
+
+                        if (CanBuy(price))
+                            ret = true;
+                    }
+                }
+                break;
+            case TurretShoot.TurretType.RED:
+                if (red_turret != null)
+                {
+                    TurretShoot ts = red_turret.GetComponent<TurretShoot>();
+
+                    if (ts != null)
+                    {
+                        int price = ts.GetPrice();
+
+                        if (CanBuy(price))
+                            ret = true;
+                    }
+                }
+                break;
+            case TurretShoot.TurretType.GREEN:
+                if (green_turret != null)
+                {
+                    TurretShoot ts = green_turret.GetComponent<TurretShoot>();
+
+                    if (ts != null)
+                    {
+                        int price = ts.GetPrice();
+
+                        if (CanBuy(price))
+                            ret = true;
+                    }
+                }
+                break;
+        }
+
+        return ret;
+    }
+
     public void OnEvent(EventSystem.Event ev)
     {
         if(ev.GetEventType() == EventSystem.EventType.ENEMY_TO_DELETE)
@@ -365,9 +423,12 @@ public class LevelManager : MonoBehaviour
             {
                 if (ev.tracker_found.tracker_go == blue_turret_tracker)
                 {
-                    SpawnTurret(slot_pos, TurretShoot.TurretType.BLUE);
+                    if (CanBuyTurret(TurretShoot.TurretType.BLUE))
+                    {
+                        SpawnTurret(slot_pos, TurretShoot.TurretType.BLUE);
 
-                    FinishPlacingTurret();
+                        FinishPlacingTurret();
+                    }
                 }
             }
 
@@ -375,9 +436,12 @@ public class LevelManager : MonoBehaviour
             {
                 if (ev.tracker_found.tracker_go == red_turret_tracker)
                 {
-                    SpawnTurret(slot_pos, TurretShoot.TurretType.RED);
+                    if (CanBuyTurret(TurretShoot.TurretType.RED))
+                    {
+                        SpawnTurret(slot_pos, TurretShoot.TurretType.RED);
 
-                    FinishPlacingTurret();
+                        FinishPlacingTurret();
+                    }
                 }
             }
 
@@ -385,9 +449,12 @@ public class LevelManager : MonoBehaviour
             {
                 if (ev.tracker_found.tracker_go == green_turret_tracker)
                 {
-                    SpawnTurret(slot_pos, TurretShoot.TurretType.GREEN);
+                    if (CanBuyTurret(TurretShoot.TurretType.GREEN))
+                    {
+                        SpawnTurret(slot_pos, TurretShoot.TurretType.GREEN);
 
-                    FinishPlacingTurret();
+                        FinishPlacingTurret();
+                    }
                 }
             }
         }

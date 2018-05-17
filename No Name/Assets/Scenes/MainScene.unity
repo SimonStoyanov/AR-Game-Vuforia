@@ -12109,7 +12109,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Curr wave: 00'
+  m_Text: 'Money: 00'
 --- !u!222 &1324770388
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18850,7 +18850,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   world_parent: {fileID: 667889472}
   wave_text: {fileID: 852410484}
-  money_text: {fileID: 0}
+  money_text: {fileID: 1324770387}
   map_not_found_panel: {fileID: 1650685219}
   grid_base_sprite: {fileID: 21300000, guid: 93d062be0c15c104fac0d2b08163bb67, type: 3}
   grid_pressed_sprite: {fileID: 21300000, guid: c813a492cfd1b8549b8e88b8c889af8a,
@@ -18868,6 +18868,7 @@ MonoBehaviour:
   red_turret_tracker: {fileID: 1630885406}
   blue_turret_tracker: {fileID: 1914871927}
   green_turret_tracker: {fileID: 126497226}
+  starting_money: 200
 --- !u!4 &2031890690
 Transform:
   m_ObjectHideFlags: 0
