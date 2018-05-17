@@ -26,6 +26,12 @@ public class LevelManager : MonoBehaviour
     [Header("Map")]
     [SerializeField] private GameObject map;
 
+    [Header("Trackers")]
+    [SerializeField] private GameObject map_tracker;
+    [SerializeField] private GameObject red_turret_tracker;
+    [SerializeField] private GameObject blue_turret_tracker;
+    [SerializeField] private GameObject green_turret_tracker;
+
     private GridManager grid_manager = new GridManager();
     private PathManager path_manager = new PathManager();
     private EventSystem event_system = new EventSystem();
@@ -84,6 +90,40 @@ public class LevelManager : MonoBehaviour
             
         }
 
+        // Trackers
+        if(map_tracker != null)
+        {
+            MarkerDetectionScript md = map_tracker.GetComponent<MarkerDetectionScript>();
+
+            if (md != null)
+                md.SetEventSystem(event_system);
+        }
+
+        if (red_turret_tracker != null)
+        {
+            MarkerDetectionScript md = red_turret_tracker.GetComponent<MarkerDetectionScript>();
+
+            if (md != null)
+                md.SetEventSystem(event_system);
+        }
+
+        if (blue_turret_tracker != null)
+        {
+            MarkerDetectionScript md = blue_turret_tracker.GetComponent<MarkerDetectionScript>();
+
+            if (md != null)
+                md.SetEventSystem(event_system);
+        }
+
+        if (green_turret_tracker != null)
+        {
+            MarkerDetectionScript md = green_turret_tracker.GetComponent<MarkerDetectionScript>();
+
+            if (md != null)
+                md.SetEventSystem(event_system);
+        }
+
+        // UI
         UpdateMoneyUI(money);
         UpdateWaveUI(curr_wave);
     }
@@ -271,5 +311,10 @@ public class LevelManager : MonoBehaviour
         {
             money_text.text = "Money: " + money.ToString();
         }
+    }
+
+    public EventSystem GetEventSystem()
+    {
+        return event_system;
     }
 }

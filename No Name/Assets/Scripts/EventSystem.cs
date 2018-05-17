@@ -10,6 +10,9 @@ public class EventSystem
         ENEMY_TO_DELETE,
         ENEMY_KILLED,
         ENEMY_ARRIVES,
+
+        TRACKER_FOUND,
+        TRACKER_LOST,
     }
 
     public class Event
@@ -24,6 +27,7 @@ public class EventSystem
             return event_type;
         }
 
+        // Enemies
         public class EnemyAdded
         {
             public EnemyAdded() { }
@@ -52,6 +56,21 @@ public class EventSystem
 
             public GameObject game_object = null;
         }   public EnemyArrives enemy_arrives = new EnemyArrives();
+
+        // Trackers
+        public class TrackerFound
+        {
+            public TrackerFound() { }
+
+            public GameObject tracker_go = null;
+        }   public TrackerFound tracker_found = new TrackerFound();
+
+        public class TrackerLost
+        {
+            public TrackerLost() { }
+
+            public GameObject tracker_go = null;
+        }   public TrackerLost tracker_lost = new TrackerLost();
 
         private EventType event_type;
     }
