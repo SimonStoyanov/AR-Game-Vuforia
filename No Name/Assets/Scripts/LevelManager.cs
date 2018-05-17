@@ -65,8 +65,23 @@ public class LevelManager : MonoBehaviour
         {
             MapInstance mi = map.GetComponent<MapInstance>();
 
-            if(mi != null)
-                spawn_points = mi.GetSpawners();      
+            if (mi != null)
+            {
+                spawn_points = mi.GetSpawners();
+
+                GameObject enemy_killer = mi.GetEnemyKiller();
+
+                if(enemy_killer != null)
+                {
+                    EnemyKiller e_killer_script = enemy_killer.GetComponent<EnemyKiller>();
+
+                    if(e_killer_script != null)
+                    {
+                        e_killer_script.SetEventSystem(event_system);
+                    }
+                }
+            }
+            
         }
 
         UpdateMoneyUI(money);
@@ -226,10 +241,13 @@ public class LevelManager : MonoBehaviour
 
     public void OnEvent(EventSystem.Event ev)
     {
+        if(ev.GetEventType() == EventSystem.EventType.ENEMY_TO_DELETE)
+        {
+            enemies.Remove(ev.enemy_to_delete.go);
+        }
+
         if(ev.GetEventType() == EventSystem.EventType.ENEMY_KILLED)
         {
-            enemies.Remove(ev.enemy_killed.killed);
-
             WinMoney(10);
         }
 

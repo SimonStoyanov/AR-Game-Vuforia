@@ -34,9 +34,9 @@ public class TurretShoot : MonoBehaviour
 
     public void OnEvent(EventSystem.Event ev)
     {
-        if (ev.GetEventType() == EventSystem.EventType.ENEMY_KILLED)
+        if (ev.GetEventType() == EventSystem.EventType.ENEMY_TO_DELETE)
         {
-            if (ev.enemy_killed.killed == target)
+            if (ev.enemy_to_delete.go == target)
                 target = null;
         }
     }
