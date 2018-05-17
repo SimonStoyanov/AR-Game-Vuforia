@@ -1,10 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] private GameObject world_parent;
+
+    [Header("UI")]
+    [SerializeField] private Text wave_text;
+    [SerializeField] private Text money_text;
 
     [Header("Grid Sprites")]
     [SerializeField] private Sprite grid_base_sprite;
@@ -29,6 +34,8 @@ public class LevelManager : MonoBehaviour
 
     private int curr_wave = 0;
     List<GameObject> enemies = new List<GameObject>();
+
+    private int money = 0;
 
     public void Start()
     {
@@ -56,12 +63,18 @@ public class LevelManager : MonoBehaviour
                 spawn_points = mi.GetSpawners();      
         }
 
+        UpdateMoneyUI(money);
+        UpdateWaveUI(curr_wave);
+
         SpawnEnemy();
     }
 
     public void Update ()
     {
         CheckGridPlacement();
+
+        if(Input.GetKeyDown("d"))
+            SpawnEnemy();
     }
 
     private void CheckGridPlacement()
@@ -91,10 +104,12 @@ public class LevelManager : MonoBehaviour
                 if(enemy != null)
                 {
                     GameObject curr_en = Instantiate(enemy, spawn_pos, Quaternion.identity);
-                    enemies.Add(curr_en);
 
-                    if(world_parent != null)
+                    if (world_parent != null)
                         curr_en.transform.parent = world_parent.transform;
+
+                    curr_en.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                    enemies.Add(curr_en);
 
                     FollowPath path_script = curr_en.GetComponent<FollowPath>();
 
@@ -135,6 +150,22 @@ public class LevelManager : MonoBehaviour
         if(ev.GetEventType() == EventSystem.EventType.ENEMY_KILLED)
         {
             enemies.Remove(ev.enemy_killed.killed);
+        }
+    }
+
+    private void UpdateWaveUI(int wave)
+    {
+        if(wave_text != null)
+        {
+            wave_text.text = "Wave: " + wave.ToString();
+        }
+    }
+
+    private void UpdateMoneyUI(int money)
+    {
+        if(money_text != null)
+        {
+            money_text.text = "Money: " + money.ToString();
         }
     }
 }

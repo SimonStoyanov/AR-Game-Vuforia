@@ -22,8 +22,13 @@ public class Stats : MonoBehaviour
     {
         curr_life = life;
     }
+
+    public void OnHit(GameObject dealer, int dmg)
+    {
+        DealDamage(dealer, dmg);
+    }
 	
-    public void DealDamage(int dmg, GameObject dealer)
+    public void DealDamage(GameObject dealer, int dmg)
     {
         if(dmg > 0)
         {
@@ -38,7 +43,7 @@ public class Stats : MonoBehaviour
 
     public bool IsDead()
     {
-        return life > 0;
+        return curr_life <= 0;
     }
 
     private void CheckDeath(GameObject dealer)
@@ -62,6 +67,7 @@ public class Stats : MonoBehaviour
 
     public void OnDestroy()
     {
-        event_system.UnSuscribe(OnEvent);
+        if(event_system != null)
+            event_system.UnSuscribe(OnEvent);
     }
 }

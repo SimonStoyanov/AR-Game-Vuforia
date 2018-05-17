@@ -182,7 +182,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1730201392507444}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.59, y: -3.71, z: 19.48}
+  m_LocalPosition: {x: 175.35036, y: 64.45764, z: 165.07608}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_Children:
   - {fileID: 4809857568699478}
@@ -196,14 +196,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1216901082524014}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.6728834, y: 0, z: 0, w: 0.7397486}
   m_LocalPosition: {x: -1.1, y: 57.1, z: 69.82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4194213127441810}
   m_Father: {fileID: 4748321877872848}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 84.58, y: 0, z: 0}
 --- !u!4 &4748321877872848
 Transform:
   m_ObjectHideFlags: 1
@@ -225,7 +225,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1143798043525340}
   m_LocalRotation: {x: -0.70497036, y: -0.054925278, z: -0.054925278, w: 0.70497036}
-  m_LocalPosition: {x: -3.832302, y: 95.18799, z: -89.260284}
+  m_LocalPosition: {x: -3, y: 21, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4179157333654406}
@@ -277,7 +277,8 @@ MonoBehaviour:
   shoot_point: {fileID: 1658158534538906}
   x_rotation_point: {fileID: 1216901082524014}
   y_rotation_point: {fileID: 1143798043525340}
-  range: 500
+  range: 100
+  damage: 10
   speed: 900
   rotation_speed: 50
   time_between_shoots: 0.3
@@ -290,7 +291,6 @@ SkinnedMeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -306,7 +306,6 @@ SkinnedMeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5

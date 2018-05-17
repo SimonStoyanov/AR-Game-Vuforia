@@ -8,10 +8,12 @@ public class Bullet : MonoBehaviour
     private float speed = 0.0f;
     Vector3 direction = Vector3.zero;
     Quaternion orientation = Quaternion.identity;
+    private int damage = 0;
 
-    public void SetInfo(float _speed, Vector3 _direction, GameObject _sender, Quaternion _orientation)
+    public void SetInfo(float _speed, int _damage, Vector3 _direction, GameObject _sender, Quaternion _orientation)
     {
         speed = _speed;
+        damage = _damage;
         direction = _direction.normalized;
         sender = _sender;
         orientation = _orientation;
@@ -28,5 +30,20 @@ public class Bullet : MonoBehaviour
     {
         transform.position += direction * speed * Time.deltaTime;
         transform.rotation = orientation;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(sender != null)
+        {
+            Stats stats = other.gameObject.GetComponent<Stats>();
+
+            if(stats != null)
+            {
+                stats.OnHit(sender, damage);
+
+                Destroy(gameObject);
+            }
+        }
     }
 }

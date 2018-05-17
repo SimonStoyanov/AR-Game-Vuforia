@@ -11,9 +11,10 @@ public class TurretShoot : MonoBehaviour
     [SerializeField] private GameObject x_rotation_point;
     [SerializeField] private GameObject y_rotation_point;
 
-    [SerializeField] private float range = 50;
-    [SerializeField] private float speed = 100;
-    [SerializeField] private float rotation_speed = 50;
+    [SerializeField] private float range = 50.0f;
+    [SerializeField] private int damage = 10;
+    [SerializeField] private float speed = 100.0f;
+    [SerializeField] private float rotation_speed = 50.0f;
     [SerializeField] private float time_between_shoots = 2.0f;
 
     private LevelManager level_manager = null;
@@ -72,26 +73,26 @@ public class TurretShoot : MonoBehaviour
             {
                 Vector3 target_pos = target.transform.position;
 
-                Vector3 last_rot = y_rotation_point.transform.rotation.eulerAngles;
+                Vector3 last_rot = y_rotation_point.transform.localRotation.eulerAngles;
                 y_rotation_point.transform.LookAt(target_pos);
-                Vector3 curr_rot = y_rotation_point.transform.rotation.eulerAngles;
+                Vector3 curr_rot = y_rotation_point.transform.localRotation.eulerAngles;
 
                 Vector3 final_rotation = new Vector3(last_rot.x, curr_rot.y, last_rot.z);
 
-                y_rotation_point.transform.rotation = Quaternion.Euler(final_rotation);
+                y_rotation_point.transform.localRotation = Quaternion.Euler(final_rotation);
             }
 
             if (x_rotation_point != null)
             {
                 Vector3 target_pos = target.transform.position;
 
-                Vector3 last_rot = x_rotation_point.transform.rotation.eulerAngles;
+                Vector3 last_rot = x_rotation_point.transform.localRotation.eulerAngles;
                 x_rotation_point.transform.LookAt(target_pos);
-                Vector3 curr_rot = x_rotation_point.transform.rotation.eulerAngles;
+                Vector3 curr_rot = x_rotation_point.transform.localRotation.eulerAngles;
 
                 Vector3 final_rotation = new Vector3(curr_rot.x, last_rot.y, last_rot.z);
 
-                x_rotation_point.transform.rotation = Quaternion.Euler(final_rotation);
+                x_rotation_point.transform.localRotation = Quaternion.Euler(final_rotation);
             }
         }
     }
@@ -109,7 +110,7 @@ public class TurretShoot : MonoBehaviour
                 Bullet bullet_script = bullet_ins.GetComponent<Bullet>();
 
                 if(bullet_script != null)
-                    bullet_script.SetInfo(speed, x_rotation_point.transform.forward, gameObject, x_rotation_point.transform.rotation);
+                    bullet_script.SetInfo(speed, damage, x_rotation_point.transform.forward, gameObject, x_rotation_point.transform.rotation);
                 
             }
         }
