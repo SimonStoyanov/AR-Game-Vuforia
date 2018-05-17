@@ -176,6 +176,10 @@ public class LevelManager : MonoBehaviour
         {
             StartPlacingTurret();
         }
+        else
+        {
+            FinishPlacingTurret();
+        }
     }
 
     private void StartPlacingTurret()
