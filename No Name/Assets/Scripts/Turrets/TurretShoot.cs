@@ -24,7 +24,6 @@ public class TurretShoot : MonoBehaviour
 
     private Timer time_between_shoots_timer = new Timer();
 
-
     public void SetManagers(LevelManager level_man, EventSystem ev_sys)
     {
         level_manager = level_man;

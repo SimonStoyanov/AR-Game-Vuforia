@@ -17,6 +17,8 @@ public class LevelManager : MonoBehaviour
 
     [Header("Enemies")]
     [SerializeField] private GameObject enemy;
+    [SerializeField] private float max_time_spawn = 5;
+    [SerializeField] private float min_time_spawn = 1;
 
     [Header("Turrets")]
     [SerializeField] private GameObject turret;
@@ -34,6 +36,10 @@ public class LevelManager : MonoBehaviour
 
     private int curr_wave = 0;
     List<GameObject> enemies = new List<GameObject>();
+
+    private int enemies_to_spawn = 0;
+    Timer enemies_to_spawn_timer = new Timer();
+    private float to_spawn_random_time = 0.0f;
 
     private int money = 0;
 
@@ -65,16 +71,44 @@ public class LevelManager : MonoBehaviour
 
         UpdateMoneyUI(money);
         UpdateWaveUI(curr_wave);
-
-        SpawnEnemy();
     }
 
     public void Update ()
     {
+        CheckNextWave();
+        SpawnEnemies();
         CheckGridPlacement();
 
         if(Input.GetKeyDown("d"))
             SpawnEnemy();
+    }
+
+    private void WinMoney(int add)
+    {
+        if(add > 0)
+        {
+            money += add;
+
+            UpdateMoneyUI(money);
+        }
+    }
+
+    private void SpendMoney(int spend)
+    {
+        if(spend > 0)
+        {
+            money -= spend;
+
+            if (money < 0)
+                money = 0;
+
+            UpdateMoneyUI(money);
+        }
+    }
+
+    private bool CanBuy(int price)
+    {
+        return price <= money;
     }
 
     private void CheckGridPlacement()
@@ -88,6 +122,51 @@ public class LevelManager : MonoBehaviour
                 SpawnTurret(spawn_pos);
 
                 curr_grid.DeselectSelectedSlot();
+            }
+        }
+    }
+
+    private bool CheckNextWave()
+    {
+        bool ret = false;
+
+        if (enemies_to_spawn <= 0)
+        {
+            if (enemies.Count <= 0)
+            {
+                NextWave();
+            }
+        }
+
+        return ret;
+    }
+
+    private void NextWave()
+    {
+        ++curr_wave;
+
+        UpdateWaveUI(curr_wave);
+
+        enemies_to_spawn = curr_wave;
+
+        enemies_to_spawn_timer.Start();
+
+        to_spawn_random_time = Random.Range(min_time_spawn, max_time_spawn + 1);
+    }
+
+    private void SpawnEnemies()
+    {
+        if(enemies_to_spawn > 0)
+        {
+            if(enemies_to_spawn_timer.ReadTime() > to_spawn_random_time)
+            {
+                SpawnEnemy();
+
+                --enemies_to_spawn;
+
+                enemies_to_spawn_timer.Start();
+
+                to_spawn_random_time = Random.Range(min_time_spawn, max_time_spawn + 1);
             }
         }
     }
@@ -150,6 +229,8 @@ public class LevelManager : MonoBehaviour
         if(ev.GetEventType() == EventSystem.EventType.ENEMY_KILLED)
         {
             enemies.Remove(ev.enemy_killed.killed);
+
+            WinMoney(10);
         }
     }
 
