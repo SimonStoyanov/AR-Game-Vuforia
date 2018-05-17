@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class TurretShoot : MonoBehaviour
 {
+    public enum TurretType
+    {
+        RED,
+        BLUE,
+        GREEN,
+    }
+
     [SerializeField] private GameObject bullet;
 
     [SerializeField] private GameObject shoot_point;

@@ -22,7 +22,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private float min_time_spawn = 1;
 
     [Header("Turrets")]
-    [SerializeField] private GameObject turret;
+    [SerializeField] private GameObject blue_turret;
+    [SerializeField] private GameObject red_turret;
+    [SerializeField] private GameObject green_turret;
 
     [Header("Map")]
     [SerializeField] private GameObject map;
@@ -49,6 +51,9 @@ public class LevelManager : MonoBehaviour
     private float to_spawn_random_time = 0.0f;
 
     private int money = 0;
+
+    private bool map_found = false;
+    private bool placing_turret = false;
 
     public void Start()
     {
@@ -171,18 +176,29 @@ public class LevelManager : MonoBehaviour
     {
         if(curr_grid.IsSlotSelected())
         {
+            StartPlacingTurret();
+        }
+    }
+
+    private void StartPlacingTurret()
+    {
+        if(!placing_turret)
+        {
             Time.timeScale = 0;
 
-            if(Input.GetKeyDown("a"))
-            {
-                Vector3 spawn_pos = curr_grid.GetSelectedSlot().GetGameObject().transform.position;
+            placing_turret = true;
+        }
+    }
 
-                SpawnTurret(spawn_pos);
+    private void FinishPlacingTurret()
+    {
+        if(placing_turret && map_found)
+        {
+            Time.timeScale = 1;
 
-                curr_grid.DeselectSelectedSlot();
+            placing_turret = false;
 
-                Time.timeScale = 1;
-            }
+            curr_grid.DeselectSelectedSlot();
         }
     }
 
@@ -269,11 +285,27 @@ public class LevelManager : MonoBehaviour
         return enemies;
     }
 
-    public void SpawnTurret(Vector3 pos)
+    public void SpawnTurret(Vector3 pos, TurretShoot.TurretType type)
     {
-        if(turret != null && world_parent != null)
+        if(world_parent != null)
         {
-            GameObject curr_en = Instantiate(turret, pos, world_parent.transform.rotation);
+            GameObject curr_en = null;
+
+            switch (type)
+            {
+                case TurretShoot.TurretType.BLUE:
+                    if(blue_turret != null)
+                        Instantiate(blue_turret, pos, world_parent.transform.rotation);
+                    break;
+                case TurretShoot.TurretType.RED:
+                    if (red_turret != null)
+                        Instantiate(red_turret, pos, world_parent.transform.rotation);
+                    break;
+                case TurretShoot.TurretType.GREEN:
+                    if (green_turret != null)
+                        Instantiate(green_turret, pos, world_parent.transform.rotation);
+                    break;
+            }
 
             curr_en.transform.parent = world_parent.transform;
 
@@ -307,6 +339,9 @@ public class LevelManager : MonoBehaviour
             {
                 SetMapFound(true);
             }
+
+            if(curr_grid.IsSlotSelected())
+            { }
         }
 
         if (ev.GetEventType() == EventSystem.EventType.TRACKER_LOST)
@@ -314,6 +349,41 @@ public class LevelManager : MonoBehaviour
             if (ev.tracker_lost.tracker_go == map_tracker)
             {
                 SetMapFound(false);
+            }
+        }
+
+        if(placing_turret)
+        {
+            Vector3 slot_pos = curr_grid.GetSelectedSlot().GetGameObject().transform.position;
+
+            if (ev.GetEventType() == EventSystem.EventType.TRACKER_FOUND)
+            {
+                if (ev.tracker_found.tracker_go == blue_turret_tracker)
+                {
+                    SpawnTurret(slot_pos, TurretShoot.TurretType.BLUE);
+
+                    FinishPlacingTurret();
+                }
+            }
+
+            if (ev.GetEventType() == EventSystem.EventType.TRACKER_FOUND)
+            {
+                if (ev.tracker_found.tracker_go == red_turret_tracker)
+                {
+                    SpawnTurret(slot_pos, TurretShoot.TurretType.RED);
+
+                    FinishPlacingTurret();
+                }
+            }
+
+            if (ev.GetEventType() == EventSystem.EventType.TRACKER_FOUND)
+            {
+                if (ev.tracker_found.tracker_go == green_turret_tracker)
+                {
+                    SpawnTurret(slot_pos, TurretShoot.TurretType.GREEN);
+
+                    FinishPlacingTurret();
+                }
             }
         }
     }
@@ -341,7 +411,10 @@ public class LevelManager : MonoBehaviour
             if(map_not_found_panel != null)
                 map_not_found_panel.SetActive(false);
             
-            Time.timeScale = 1;
+            if(!placing_turret)
+                Time.timeScale = 1;
+
+            map_found = true;
         }
         else
         {
@@ -349,6 +422,8 @@ public class LevelManager : MonoBehaviour
                 map_not_found_panel.SetActive(true);
 
             Time.timeScale = 0;
+
+            map_found = false;
         }
     }
 
