@@ -4476,7 +4476,7 @@ Transform:
   - {fileID: 983711492}
   - {fileID: 1894361293}
   m_Father: {fileID: 2013859253}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &523069440
 Prefab:
@@ -12131,7 +12131,7 @@ Transform:
   - {fileID: 1995550438}
   - {fileID: 220746553}
   m_Father: {fileID: 2013859253}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1371203738 stripped
 Transform:
@@ -18187,9 +18187,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1739179508}
   - {fileID: 519331878}
   - {fileID: 1370902309}
+  - {fileID: 1739179508}
   m_Father: {fileID: 2057793616}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -18333,9 +18333,11 @@ MonoBehaviour:
   enemy: {fileID: 1258583198429672, guid: cedfd3fbdd3a6d44aab4856562dcf7b4, type: 2}
   max_time_spawn: 5
   min_time_spawn: 1
-  blue_turret: {fileID: 0}
-  red_turret: {fileID: 0}
-  green_turret: {fileID: 0}
+  blue_turret: {fileID: 1730201392507444, guid: 3396e10ebbd492d44aca80da50d0d5d1,
+    type: 2}
+  red_turret: {fileID: 1510704793019450, guid: f33095d4b0d985741904c952338f8e7f, type: 2}
+  green_turret: {fileID: 1439173503154364, guid: 8dbfd73824248904c968dba944ae4013,
+    type: 2}
   map: {fileID: 2057793615}
   map_tracker: {fileID: 94420266}
   red_turret_tracker: {fileID: 1630885406}

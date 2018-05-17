@@ -116,7 +116,7 @@ public class GridManager
 
                 if (slot.GetSlotType() == GridSlotManager.GridSlotType.GST_INTERACTABLE)
                 {
-                    selected_grid_slot = slot;
+                     selected_grid_slot = slot;
 
                     SelectSlot(selected_grid_slot);
                 }

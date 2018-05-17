@@ -138,10 +138,8 @@ public class LevelManager : MonoBehaviour
     {
         CheckNextWave();
         SpawnEnemies();
-        CheckGridPlacement();
 
-        if(Input.GetKeyDown("d"))
-            SpawnEnemy();
+        CheckGridPlacement();
     }
 
     private void WinMoney(int add)
@@ -174,7 +172,7 @@ public class LevelManager : MonoBehaviour
 
     private void CheckGridPlacement()
     {
-        if(curr_grid.IsSlotSelected())
+        if (curr_grid.IsSlotSelected())
         {
             StartPlacingTurret();
         }
@@ -295,24 +293,27 @@ public class LevelManager : MonoBehaviour
             {
                 case TurretShoot.TurretType.BLUE:
                     if(blue_turret != null)
-                        Instantiate(blue_turret, pos, world_parent.transform.rotation);
+                        curr_en = Instantiate(blue_turret, pos, world_parent.transform.rotation);
                     break;
                 case TurretShoot.TurretType.RED:
                     if (red_turret != null)
-                        Instantiate(red_turret, pos, world_parent.transform.rotation);
+                        curr_en = Instantiate(red_turret, pos, world_parent.transform.rotation);
                     break;
                 case TurretShoot.TurretType.GREEN:
                     if (green_turret != null)
-                        Instantiate(green_turret, pos, world_parent.transform.rotation);
+                        curr_en = Instantiate(green_turret, pos, world_parent.transform.rotation);
                     break;
             }
 
-            curr_en.transform.parent = world_parent.transform;
+            if (curr_en != null)
+            {
+                curr_en.transform.parent = world_parent.transform;
 
-            TurretShoot turr_shoot = curr_en.GetComponent<TurretShoot>();
+                TurretShoot turr_shoot = curr_en.GetComponent<TurretShoot>();
 
-            if (turr_shoot != null)
-                turr_shoot.SetManagers(this, event_system);
+                if (turr_shoot != null)
+                    turr_shoot.SetManagers(this, event_system);
+            }
         }
     }
 
