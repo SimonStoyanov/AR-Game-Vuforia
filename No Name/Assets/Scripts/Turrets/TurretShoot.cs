@@ -31,12 +31,16 @@ public class TurretShoot : MonoBehaviour
 
     private Timer time_between_shoots_timer = new Timer();
 
+    AudioSource audio_source = null;
+    
+
     public void SetManagers(LevelManager level_man, EventSystem ev_sys)
     {
         level_manager = level_man;
         event_system = ev_sys;
-
         event_system.Suscribe(OnEvent);
+
+        audio_source = GetComponent<AudioSource>();
     }
 
     public void OnEvent(EventSystem.Event ev)
@@ -115,9 +119,12 @@ public class TurretShoot : MonoBehaviour
                 GameObject bullet_ins = Instantiate(bullet, shoot_point.transform.position, rot);
                 Bullet bullet_script = bullet_ins.GetComponent<Bullet>();
 
-                if(bullet_script != null)
+                if (bullet_script != null)
+                {
                     bullet_script.SetInfo(speed, damage, x_rotation_point.transform.forward, gameObject, x_rotation_point.transform.rotation);
-                
+                    audio_source.Play();
+
+                }
             }
         }
     }
