@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114119758143214060}
   - component: {fileID: 33362346617588444}
   - component: {fileID: 114975707540574080}
+  - component: {fileID: 114542482142256820}
   m_Layer: 0
   m_Name: BlueImageTarget
   m_TagString: Untagged
@@ -174,8 +175,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1022228499719936}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 145.31, y: 0, z: 79}
-  m_LocalScale: {x: 1.416667, y: 1.416667, z: 1.416667}
+  m_LocalPosition: {x: 172.65262, y: 0, z: -169.1}
+  m_LocalScale: {x: 31.48, y: 31.48, z: 31.48}
   m_Children:
   - {fileID: 4446376756572572}
   m_Father: {fileID: 0}
@@ -255,9 +256,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1326205967926786}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
+  m_LocalScale: {x: 0.0021974875, y: 0.0021974875, z: 0.0021974875}
   m_Children:
   - {fileID: 4084529900220150}
   - {fileID: 4444494382990938}
@@ -287,6 +288,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
@@ -302,6 +304,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -345,6 +348,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e246bd21db86f8346bc66895a661fcc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114542482142256820
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1022228499719936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96469a3893d051f48a112fa6488dc1a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114646035571999808
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -356,7 +370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cadfb90286c81fd42a6785e4e7cd3024, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mTrackableName: red
+  mTrackableName: blue
   mPreserveChildSize: 0
   mInitializedInEditor: 1
   mDataSetPath: Vuforia/turrets-ar.xml
@@ -369,10 +383,10 @@ MonoBehaviour:
   mSmartTerrainOccluderOffset: {x: 0, y: 0, z: 0}
   mSmartTerrainOccluderRotation: {x: 0, y: 0, z: 0, w: 0}
   mAutoSetOccluderFromTargetSize: 0
-  mAspectRatio: 1.416667
+  mAspectRatio: 1.383538
   mImageTargetType: 0
-  mWidth: 1
-  mHeight: 1.416667
+  mWidth: 22.75326
+  mHeight: 31.48
 --- !u!114 &114975707540574080
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -393,6 +407,7 @@ SkinnedMeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -408,6 +423,7 @@ SkinnedMeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
