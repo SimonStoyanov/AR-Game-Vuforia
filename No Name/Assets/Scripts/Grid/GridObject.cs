@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class GridObject : MonoBehaviour
 {
-    private Grid grid = null;
+    //private Grid grid = null;
 
-    public void SetGrid(Grid _grid)
-    {
-        grid = _grid;
-    }
+    //public void SetGrid(Grid _grid)
+    //{
+    //    grid = _grid;
+    //}
 
     // Use this for initialization
     void Start () {
