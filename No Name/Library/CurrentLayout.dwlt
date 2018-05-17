@@ -70,7 +70,7 @@ MonoBehaviour:
   m_MinSize: {x: 277, y: 292}
   m_MaxSize: {x: 4002, y: 8042}
   vertical: 1
-  controlID: 83
+  controlID: 128
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -373,19 +373,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Resources
+    - Assets/Prefabs/UI
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Resources
+  - Assets/Prefabs/UI
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\AR-Game-Vuforia\No Name
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 71}
-    m_SelectedIDs: 726d0000
-    m_LastClickedID: 28018
-    m_ExpandedIDs: 00000000564100004044000060460000a04a0000f24d0000e8500000e4560000165700004e660000b46d0000867b0000887b00008a7b00008c7b00008e7b0000907b0000927b0000947b0000967b0000987b00009a7b00009c7b000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 131}
+    m_SelectedIDs: 98570000
+    m_LastClickedID: 22424
+    m_ExpandedIDs: 00000000982700008e2a0000ae2c0000f83000004c34000056370000343e0000703e0000da4d000082550000225d0000245d0000265d0000285d00002a5d00002c5d00002e5d0000305d0000325d0000345d0000365d0000385d000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -413,7 +413,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000564100004044000060460000a04a0000f24d0000e8500000e4560000165700004e660000b46d0000867b0000887b00008a7b00008c7b00008e7b0000907b0000927b0000947b0000967b0000987b00009a7b00009c7b0000
+    m_ExpandedIDs: 00000000982700008e2a0000ae2c0000f83000004c34000056370000343e0000703e0000da4d000082550000225d0000245d0000265d0000285d00002a5d00002c5d00002e5d0000305d0000325d0000345d0000365d0000385d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -494,7 +494,7 @@ MonoBehaviour:
     y: 92
     width: 510
     height: 505
-  m_ScrollPosition: {x: 0, y: 228.95508}
+  m_ScrollPosition: {x: 0, y: 0}
   m_InspectorMode: 0
   m_PreviewResizer:
     m_CachedPref: -160
@@ -529,28 +529,28 @@ MonoBehaviour:
     height: 655
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: f07b0000
-    m_LastClickedID: 31728
-    m_ExpandedIDs: f6bdffff90e7ffff00000000c27b0000d47b0000
+    m_SelectedIDs: 
+    m_LastClickedID: 0
+    m_ExpandedIDs: 00cbffff40f2ffff16fcffff00000000ea5e0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: NoMoneyPanel
+      m_OriginalName: NoMoneyPanel
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: -13568
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 6}
     m_SearchString: 
   m_ExpandedScenes:
-  - MenuScene
+  - MainScene
   m_CurrenRootInstanceID: 0
   m_Locked: 0
   m_CurrentSortingName: TransformSorting
@@ -586,9 +586,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 238.01747, y: 162.73785, z: 34.49301}
+    m_Target: {x: 211.20761, y: 120.56384, z: 29.167542}
     speed: 2
-    m_Value: {x: 238.01747, y: 162.73785, z: 34.49301}
+    m_Value: {x: 211.20761, y: 120.56384, z: 29.167542}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -611,9 +611,9 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.03330293, y: 0.005094359, z: -0.00016972974, w: -0.9994323}
+    m_Target: {x: -0.07072051, y: 0.029020268, z: -0.0020583225, w: -0.9970718}
     speed: 2
-    m_Value: {x: -0.03330293, y: 0.005094359, z: -0.00016972974, w: -0.9994323}
+    m_Value: {x: -0.07072051, y: 0.029020268, z: -0.0020583225, w: -0.9970718}
   m_Size:
     m_Target: 565.51447
     speed: 2
