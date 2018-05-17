@@ -277,11 +277,11 @@ MonoBehaviour:
   shoot_point: {fileID: 1170492940608484}
   x_rotation_point: {fileID: 1716070429295304}
   y_rotation_point: {fileID: 1721461120793596}
-  range: 100
-  damage: 10
+  range: 125
+  damage: 13
   speed: 900
   rotation_speed: 50
-  time_between_shoots: 0.3
+  time_between_shoots: 0.75
 --- !u!137 &137772823497244038
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

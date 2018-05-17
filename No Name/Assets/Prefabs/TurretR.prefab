@@ -277,7 +277,7 @@ MonoBehaviour:
   shoot_point: {fileID: 1669337173253458}
   x_rotation_point: {fileID: 1735010488163998}
   y_rotation_point: {fileID: 1285125260236740}
-  range: 100
+  range: 75
   damage: 10
   speed: 900
   rotation_speed: 50
