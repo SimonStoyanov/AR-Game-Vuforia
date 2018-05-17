@@ -51,6 +51,10 @@ public class Stats : MonoBehaviour
         if(IsDead())
         {
             // Send Event
+            EventSystem.Event to_delete_event = new EventSystem.Event(EventSystem.EventType.ENEMY_TO_DELETE);
+            to_delete_event.enemy_to_delete.go = this.gameObject;
+            event_system.SendEvent(to_delete_event);
+
             EventSystem.Event death_event = new EventSystem.Event(EventSystem.EventType.ENEMY_KILLED);
             death_event.enemy_killed.killed = this.gameObject;
             death_event.enemy_killed.killer = dealer;

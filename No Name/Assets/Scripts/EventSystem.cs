@@ -7,6 +7,7 @@ public class EventSystem
     public enum EventType
     {
         ENEMY_ADDED,
+        ENEMY_TO_DELETE,
         ENEMY_KILLED,
         ENEMY_ARRIVES,
     }
@@ -29,6 +30,13 @@ public class EventSystem
 
             public GameObject go = null;
         }   public EnemyAdded enemy_added = new EnemyAdded();
+
+        public class EnemyToDelete
+        {
+            public EnemyToDelete() { }
+
+            public GameObject go = null;
+        }   public EnemyToDelete enemy_to_delete = new EnemyToDelete();
 
         public class EnemyKilled
         {
