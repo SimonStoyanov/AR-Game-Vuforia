@@ -146,7 +146,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4823957528735022}
   - component: {fileID: 95837717933314456}
-  - component: {fileID: 114886585670826394}
   m_Layer: 0
   m_Name: TurretR
   m_TagString: Untagged
@@ -346,26 +345,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a917f0af64a6423093132dab321c15f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114886585670826394
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1980200760431208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8213ab8ee5967f4698d955e9b33da6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet: {fileID: 1841817865393410, guid: a1e7f837d8440b24bb16a1920c73e0d4, type: 2}
-  shoot_point: {fileID: 1480770497987210}
-  x_rotation_point: {fileID: 1370958005480296}
-  y_rotation_point: {fileID: 1372515141411034}
-  range: 100
-  damage: 10
-  speed: 900
-  rotation_speed: 50
-  time_between_shoots: 0.3
 --- !u!114 &114905054620860838
 MonoBehaviour:
   m_ObjectHideFlags: 1
