@@ -170,6 +170,8 @@ public class LevelManager : MonoBehaviour
     {
         if(curr_grid.IsSlotSelected())
         {
+            Time.timeScale = 0;
+
             if(Input.GetKeyDown("a"))
             {
                 Vector3 spawn_pos = curr_grid.GetSelectedSlot().GetGameObject().transform.position;
@@ -177,6 +179,8 @@ public class LevelManager : MonoBehaviour
                 SpawnTurret(spawn_pos);
 
                 curr_grid.DeselectSelectedSlot();
+
+                Time.timeScale = 1;
             }
         }
     }
