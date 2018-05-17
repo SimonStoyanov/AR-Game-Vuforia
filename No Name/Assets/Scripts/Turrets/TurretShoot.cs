@@ -115,6 +115,15 @@ public class TurretShoot : MonoBehaviour
         }
     }
 
+    private void CheckOutOfRange()
+    {
+        if(target != null)
+        {
+            if (Vector3.Distance(target.transform.position, transform.position) > range)
+                target = null;
+        }
+    }
+
     public void Start()
     {
         time_between_shoots_timer.Start();
@@ -128,6 +137,7 @@ public class TurretShoot : MonoBehaviour
         }
         else
         {
+            CheckOutOfRange();
             AimTarget();
             Shoot();
         }

@@ -8,6 +8,7 @@ public class EventSystem
     {
         ENEMY_ADDED,
         ENEMY_KILLED,
+        ENEMY_ARRIVES,
     }
 
     public class Event
@@ -27,8 +28,7 @@ public class EventSystem
             public EnemyAdded() { }
 
             public GameObject go = null;
-        }
-        public EnemyAdded enemy_added = new EnemyAdded();
+        }   public EnemyAdded enemy_added = new EnemyAdded();
 
         public class EnemyKilled
         {
@@ -37,6 +37,13 @@ public class EventSystem
             public GameObject killer = null;
             public GameObject killed = null;
         }   public EnemyKilled enemy_killed = new EnemyKilled();
+
+        public class EnemyArrives
+        {
+            public EnemyArrives() { }
+
+            public GameObject game_object = null;
+        }   public EnemyArrives enemy_arrives = new EnemyArrives();
 
         private EventType event_type;
     }

@@ -232,6 +232,11 @@ public class LevelManager : MonoBehaviour
 
             WinMoney(10);
         }
+
+        if (ev.GetEventType() == EventSystem.EventType.ENEMY_ARRIVES)
+        {
+
+        }
     }
 
     private void UpdateWaveUI(int wave)
