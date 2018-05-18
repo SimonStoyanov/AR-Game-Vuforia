@@ -11,6 +11,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Text wave_text;
     [SerializeField] private Text money_text;
     [SerializeField] private GameObject map_not_found_panel;
+    [SerializeField] private GameObject place_turret_panel;
+    [SerializeField] private GameObject not_enough_money_panel;
+    [SerializeField] private GameObject you_lost_panel;
 
     [Header("Grid Sprites")]
     [SerializeField] private Sprite grid_base_sprite;
@@ -37,6 +40,7 @@ public class LevelManager : MonoBehaviour
 
     [Header("Stats")]
     [SerializeField] private int starting_money = 200;
+    [SerializeField] private int max_enemies_passed = 5;
 
     private GridManager grid_manager = new GridManager();
     private PathManager path_manager = new PathManager();
@@ -54,9 +58,11 @@ public class LevelManager : MonoBehaviour
     private float to_spawn_random_time = 0.0f;
 
     private int money = 0;
+    private int enemies_passed = 0;
 
     private bool map_found = false;
     private bool placing_turret = false;
+    private bool lost = false;
 
     public void Start()
     {
@@ -141,10 +147,25 @@ public class LevelManager : MonoBehaviour
 
     public void Update ()
     {
-        CheckNextWave();
-        SpawnEnemies();
+        if (!lost)
+        {
+            CheckNextWave();
+            SpawnEnemies();
 
-        CheckGridPlacement();
+            CheckGridPlacement();
+
+            CheckLose();
+        }
+    }
+
+    private void CheckLose()
+    {
+        if(enemies_passed > max_enemies_passed && !lost)
+        {
+            EnableYouLostUI();
+
+            lost = true;
+        }
     }
 
     private void WinMoney(int add)
@@ -194,6 +215,8 @@ public class LevelManager : MonoBehaviour
             Time.timeScale = 0;
 
             placing_turret = true;
+
+            SetPlaceTurretUI(true);
         }
     }
 
@@ -206,6 +229,8 @@ public class LevelManager : MonoBehaviour
             placing_turret = false;
 
             curr_grid.DeselectSelectedSlot();
+
+            SetPlaceTurretUI(false);
         }
     }
 
@@ -326,7 +351,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public bool CanBuyTurret(TurretShoot.TurretType type)
+    public bool CanBuyTurret(TurretShoot.TurretType type, ref int price)
     {
         bool ret = false;
 
@@ -339,7 +364,7 @@ public class LevelManager : MonoBehaviour
 
                     if (ts != null)
                     {
-                        int price = ts.GetPrice();
+                        price = ts.GetPrice();
 
                         if (CanBuy(price))
                             ret = true;
@@ -353,7 +378,7 @@ public class LevelManager : MonoBehaviour
 
                     if (ts != null)
                     {
-                        int price = ts.GetPrice();
+                        price = ts.GetPrice();
 
                         if (CanBuy(price))
                             ret = true;
@@ -367,7 +392,7 @@ public class LevelManager : MonoBehaviour
 
                     if (ts != null)
                     {
-                        int price = ts.GetPrice();
+                        price = ts.GetPrice();
 
                         if (CanBuy(price))
                             ret = true;
@@ -393,7 +418,7 @@ public class LevelManager : MonoBehaviour
 
         if (ev.GetEventType() == EventSystem.EventType.ENEMY_ARRIVES)
         {
-
+            ++enemies_passed;
         }
 
         if(ev.GetEventType() == EventSystem.EventType.TRACKER_FOUND)
@@ -423,11 +448,19 @@ public class LevelManager : MonoBehaviour
             {
                 if (ev.tracker_found.tracker_go == blue_turret_tracker)
                 {
-                    if (CanBuyTurret(TurretShoot.TurretType.BLUE))
+                    int price = 0;
+
+                    if (CanBuyTurret(TurretShoot.TurretType.BLUE, ref price))
                     {
+                        SpendMoney(price);
+
                         SpawnTurret(slot_pos, TurretShoot.TurretType.BLUE);
 
                         FinishPlacingTurret();
+                    }
+                    else
+                    {
+                        EnableNotEnoughMoneyUI();
                     }
                 }
             }
@@ -436,11 +469,19 @@ public class LevelManager : MonoBehaviour
             {
                 if (ev.tracker_found.tracker_go == red_turret_tracker)
                 {
-                    if (CanBuyTurret(TurretShoot.TurretType.RED))
+                    int price = 0;
+
+                    if (CanBuyTurret(TurretShoot.TurretType.RED, ref price))
                     {
+                        SpendMoney(price);
+
                         SpawnTurret(slot_pos, TurretShoot.TurretType.RED);
 
                         FinishPlacingTurret();
+                    }
+                    else
+                    {
+                        EnableNotEnoughMoneyUI();
                     }
                 }
             }
@@ -449,11 +490,19 @@ public class LevelManager : MonoBehaviour
             {
                 if (ev.tracker_found.tracker_go == green_turret_tracker)
                 {
-                    if (CanBuyTurret(TurretShoot.TurretType.GREEN))
+                    int price = 0;
+
+                    if (CanBuyTurret(TurretShoot.TurretType.GREEN, ref price))
                     {
+                        SpendMoney(price);
+
                         SpawnTurret(slot_pos, TurretShoot.TurretType.GREEN);
 
                         FinishPlacingTurret();
+                    }
+                    else
+                    {
+                        EnableNotEnoughMoneyUI();
                     }
                 }
             }
@@ -473,6 +522,31 @@ public class LevelManager : MonoBehaviour
         if(money_text != null)
         {
             money_text.text = "Money: " + money.ToString();
+        }
+    }
+
+    private void SetPlaceTurretUI(bool set)
+    {
+        if(place_turret_panel != null)
+        {
+            place_turret_panel.SetActive(set);
+        }
+    }
+
+    private void EnableNotEnoughMoneyUI()
+    {
+        if(not_enough_money_panel != null)
+        {
+            not_enough_money_panel.SetActive(true);
+        }
+    }
+
+    private void EnableYouLostUI()
+    {
+        if(you_lost_panel != null)
+        {
+            you_lost_panel.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 

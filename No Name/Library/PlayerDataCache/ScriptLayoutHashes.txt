@@ -132,6 +132,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 3d1b89310e77c34bc0c8d7132231345c Assembly-CSharp.dll:Vuforia.WireframeBehaviour
 dd5481137759597d614818793c90a7fe Assembly-CSharp.dll:.FollowPath
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.CameraFocusController
+c55019f74481447750fe76e9999c1815 Assembly-CSharp.dll:.TimerAutoDisable
 9f63ed7d3f71c0110225147ac850a79f Assembly-CSharp.dll:.GridInstance
 05524b8f659e7bfe5756d1335fec24ba Vuforia.UnityExtensions.dll:Vuforia.DistortionRenderingBehaviour
 66ee6ce0968b1fa679c5c06187b8e23f Vuforia.UnityExtensions.dll:Vuforia.VuforiaAbstractBehaviour
@@ -143,10 +144,10 @@ dd5481137759597d614818793c90a7fe Assembly-CSharp.dll:.FollowPath
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.MarkerDetectionScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Vuforia.HideExcessAreaBehaviour
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.GridObject
-57727b0724a6784b1c58a2be0fecc2b2 Assembly-CSharp.dll:.TurretShoot
+ab71a7aeb0f8579bed1b197d6372eb66 Assembly-CSharp.dll:.TurretShoot
 66724dbbd175ae00d19353c4d95d1289 Assembly-CSharp.dll:.GridSlotManager
 387ef655a40a5a09b4b289e4961f5583 Assembly-CSharp.dll:Vuforia.CylinderTargetBehaviour
-cbb04d5a0a59f7e7e107eab71c96352f Assembly-CSharp.dll:.LevelManager
+e51d754b8ff4825f2e895057cc675f1a Assembly-CSharp.dll:.LevelManager
 67b48974ce9eba2f5f42615d194258b7 Assembly-CSharp.dll:Vuforia.MaskOutBehaviour
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Networking.dll:UnityEngine.Networking.NetworkBehaviour
@@ -186,3 +187,4 @@ d2a2bd333db22f480a8589e167314ecc Assembly-CSharp.dll:Vuforia.UserDefinedTargetBu
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.PathCreatorEditor
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Bullet
 7cac06ac0eaa7257b831c29e4455ce1b Assembly-CSharp.dll:Vuforia.VuforiaConfiguration
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.LoadScene
