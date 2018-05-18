@@ -12,7 +12,7 @@ public class Timer
     {
         started = true;
         start_time = Time.timeSinceLevelLoad;
-        start_fixed_time = Time.fixedUnscaledTime;
+        start_fixed_time = Time.realtimeSinceStartup;
     }
 
     public float ReadTime()
@@ -26,7 +26,7 @@ public class Timer
     public float ReadFixedTime()
     {
         if (started)
-            return Time.fixedUnscaledTime - start_fixed_time;
+            return Time.realtimeSinceStartup - start_fixed_time;
         else
             return 0.0f;
     }

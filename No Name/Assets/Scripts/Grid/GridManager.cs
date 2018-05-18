@@ -80,6 +80,23 @@ public class GridManager
             }
         }
 
+        public void SetGridType(GridSlot slot, GridSlotManager.GridSlotType new_type)
+        {
+            if(slot != null)
+            {
+                slot.SetSlotType(new_type);
+
+                if(new_type == GridSlotManager.GridSlotType.GST_NO_INTERACTABLE)
+                {
+                    slot.GetSpriteRenderer().enabled = false;
+                }
+                else if(new_type == GridSlotManager.GridSlotType.GST_INTERACTABLE)
+                {
+                    slot.GetSpriteRenderer().enabled = true;
+                }
+            }
+        }
+
         public void SetPrintGrid(bool set)
         {
             for (int i = 0; i < interactable_slots.Count; ++i)
@@ -213,6 +230,7 @@ public class GridManager
         public SpriteRenderer GetSpriteRenderer() { return sprite_renderer; }
         public BoxCollider GetCollider() { return collider; }
         public GridSlotManager.GridSlotType GetSlotType() { return slot_type; }
+        public void SetSlotType(GridSlotManager.GridSlotType type) { slot_type = type; }
         public List<GridSlot> near_slots = new List<GridSlot>();
 
         private bool is_used = false;

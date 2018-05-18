@@ -14,13 +14,18 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject place_turret_panel;
     [SerializeField] private GameObject not_enough_money_panel;
     [SerializeField] private GameObject you_lost_panel;
+    [SerializeField] private GameObject money_win_lose_panel;
+    [SerializeField] private Text money_win_lose_text;
+    [SerializeField] private GameObject turret_info_panel;
 
     [Header("Grid Sprites")]
     [SerializeField] private Sprite grid_base_sprite;
     [SerializeField] private Sprite grid_pressed_sprite;
 
     [Header("Enemies")]
-    [SerializeField] private GameObject enemy;
+    [SerializeField] private GameObject yellow_enemy;
+    [SerializeField] private GameObject orange_enemy;
+    [SerializeField] private GameObject pink_enemy;
     [SerializeField] private float max_time_spawn = 5;
     [SerializeField] private float min_time_spawn = 1;
 
@@ -175,6 +180,8 @@ public class LevelManager : MonoBehaviour
             money += add;
 
             UpdateMoneyUI(money);
+
+            UpdateMoneyWinLoseUI(add);
         }
     }
 
@@ -188,6 +195,8 @@ public class LevelManager : MonoBehaviour
                 money = 0;
 
             UpdateMoneyUI(money);
+
+            UpdateMoneyWinLoseUI(-spend);
         }
     }
 
@@ -288,9 +297,26 @@ public class LevelManager : MonoBehaviour
 
             if(path != null)
             {
-                if(enemy != null)
+                int enemy_no = Random.Range(1, 4);
+
+                GameObject enemy_go = null;
+
+                switch(enemy_no)
                 {
-                    GameObject curr_en = Instantiate(enemy, spawn_pos, Quaternion.identity);
+                    case 1:
+                        enemy_go = yellow_enemy;
+                        break;
+                    case 2:
+                        enemy_go = pink_enemy;
+                        break;
+                    case 3:
+                        enemy_go = orange_enemy;
+                        break;
+                }
+
+                if(enemy_go != null)
+                {
+                    GameObject curr_en = Instantiate(enemy_go, spawn_pos, Quaternion.identity);
 
                     if (world_parent != null)
                         curr_en.transform.parent = world_parent.transform;
@@ -413,7 +439,7 @@ public class LevelManager : MonoBehaviour
 
         if(ev.GetEventType() == EventSystem.EventType.ENEMY_KILLED)
         {
-            WinMoney(10);
+            WinMoney(30);
         }
 
         if (ev.GetEventType() == EventSystem.EventType.ENEMY_ARRIVES)
@@ -440,7 +466,7 @@ public class LevelManager : MonoBehaviour
             }
         }
 
-        if(placing_turret)
+        if(placing_turret && map_found)
         {
             Vector3 slot_pos = curr_grid.GetSelectedSlot().GetGameObject().transform.position;
 
@@ -455,6 +481,8 @@ public class LevelManager : MonoBehaviour
                         SpendMoney(price);
 
                         SpawnTurret(slot_pos, TurretShoot.TurretType.BLUE);
+
+                        curr_grid.SetGridType(curr_grid.GetSelectedSlot(), GridSlotManager.GridSlotType.GST_NO_INTERACTABLE);
 
                         FinishPlacingTurret();
                     }
@@ -477,6 +505,8 @@ public class LevelManager : MonoBehaviour
 
                         SpawnTurret(slot_pos, TurretShoot.TurretType.RED);
 
+                        curr_grid.SetGridType(curr_grid.GetSelectedSlot(), GridSlotManager.GridSlotType.GST_NO_INTERACTABLE);
+
                         FinishPlacingTurret();
                     }
                     else
@@ -497,6 +527,8 @@ public class LevelManager : MonoBehaviour
                         SpendMoney(price);
 
                         SpawnTurret(slot_pos, TurretShoot.TurretType.GREEN);
+
+                        curr_grid.SetGridType(curr_grid.GetSelectedSlot(), GridSlotManager.GridSlotType.GST_NO_INTERACTABLE);
 
                         FinishPlacingTurret();
                     }
@@ -525,11 +557,32 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    private void UpdateMoneyWinLoseUI(int money_win_lose)
+    {
+        if(money_win_lose_text != null && money_win_lose_panel != null)
+        {
+            if (money_win_lose > 0)
+            {
+                money_win_lose_panel.SetActive(true);
+                money_win_lose_text.text = "+" + money_win_lose.ToString();
+            }
+
+            if (money_win_lose < 0)
+            {
+                money_win_lose_panel.SetActive(true);
+                money_win_lose_text.text = "-" + Mathf.Abs(money_win_lose).ToString();
+            }
+        }
+    }
+
     private void SetPlaceTurretUI(bool set)
     {
         if(place_turret_panel != null)
         {
             place_turret_panel.SetActive(set);
+
+            if (!set)
+                CloseTurretInfoUI();
         }
     }
 
@@ -547,6 +600,22 @@ public class LevelManager : MonoBehaviour
         {
             you_lost_panel.SetActive(true);
             Time.timeScale = 0;
+        }
+    }
+
+    private void CloseTurretInfoUI()
+    {
+        if(turret_info_panel != null)
+        {
+            turret_info_panel.SetActive(false);
+        }
+    }
+
+    public void ToggleTurretInfoUI()
+    {
+        if (turret_info_panel != null)
+        {
+            turret_info_panel.SetActive(!turret_info_panel.activeSelf);
         }
     }
 
