@@ -361,7 +361,7 @@ MonoBehaviour:
   y_rotation_point: {fileID: 1721461120793596}
   range: 125
   damage: 13
-  speed: 900
+  speed: 1000
   rotation_speed: 50
   time_between_shoots: 0.5
 --- !u!137 &137772823497244038
